@@ -1,18 +1,20 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 
 export async function GET() {
   try {
-    const posts = await prisma.blogPost.findMany({
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+    const response = await fetch(
+      `${process.env.SUPABASE_URL}/rest/v1/BlogPost?order=createdAt.desc`,
+      {
+        headers: {
+          "apikey": process.env.SUPABASE_ANON_KEY!,
+          "Authorization": `Bearer ${process.env.SUPABASE_ANON_KEY!}`,
+        },
+      }
+    );
 
-    return NextResponse.json(posts);
+    const data = await response.json();
+    return NextResponse.json(data);
   } catch (error) {
-    console.error("Failed to fetch blog posts:", error);
-
     return NextResponse.json(
       { error: "Failed to fetch blog posts" },
       { status: 500 }
