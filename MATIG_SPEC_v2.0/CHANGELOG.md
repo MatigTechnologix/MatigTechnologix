@@ -1,3 +1,0 @@
-# CHANGELOG
-
-Initial specification placeholder.
