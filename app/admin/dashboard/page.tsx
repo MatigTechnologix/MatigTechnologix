@@ -44,7 +44,7 @@ function SettingsSection() {
       Object.entries(settings).map(([key, value]) =>
         fetch(`${SURL}/rest/v1/Setting`, {
           method: "POST",
-          headers: { ...H, Prefer: "resolution=merge-duplicates" },
+          headers: { ...H, "Prefer": "resolution=merge-duplicates", "Content-Type": "application/json" },
           body: JSON.stringify({ key, value }),
         })
       )
