@@ -12,14 +12,17 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const SURL = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
+    const SKEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
+
     const response = await fetch(
-      `${process.env.SUPABASE_URL}/rest/v1/ContactMessage`,
+      `${SURL}/rest/v1/ContactMessage`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "apikey": process.env.SUPABASE_ANON_KEY!,
-          "Authorization": `Bearer ${process.env.SUPABASE_ANON_KEY!}`,
+          "apikey": SKEY!,
+          "Authorization": `Bearer ${SKEY!}`,
           "Prefer": "return=minimal"
         },
         body: JSON.stringify({
