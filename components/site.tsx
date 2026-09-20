@@ -2,14 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 
-export const services = [
-  ["Lead Generation", "Targeted prospect lists designed around your exact ICP.", "lead-generation"],
-  ["LinkedIn Outreach", "Thoughtful conversations that earn qualified replies.", "linkedin-outreach"],
-  ["B2B Prospect Research", "Decision-maker intelligence your sales team can trust.", "prospect-research"],
-  ["Digital Marketing", "Campaigns built to generate attention and action.", "digital-marketing"],
-  ["Branding & Design", "Distinct visual systems for credible B2B brands.", "branding-design"],
-  ["Website Development", "Fast, considered sites engineered to convert.", "website-development"],
-];
+
 
 export function Nav(){return <nav className="nav shell" aria-label="Main navigation"><Link href="/" className="brand"><i/>MATIG</Link><div className="links"><Link href="/services">Services</Link><Link href="/industries">Industries</Link><Link href="/work">Our work</Link><Link href="/about">About</Link><Link href="/resources">Insights</Link></div><Link href="/contact" className="btn primary">Get a Free Sample <span>↗</span></Link><span className="mobile" aria-hidden>☰</span></nav>}
 export function Footer(){

@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { CTA, Footer, PageHero, services } from "../../../components/site";
+import { services } from "../../../lib/services-data";
+import { CTA, Footer, PageHero } from "../../../components/site";
 
 export function generateStaticParams() {
   return services.map(([, , slug]) => ({ slug }));
