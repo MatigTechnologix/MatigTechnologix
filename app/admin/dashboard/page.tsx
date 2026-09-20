@@ -191,7 +191,7 @@ export default function AdminDashboard() {
     </div>
   );
 
-  const content: Record<string, JSX.Element> = {
+  const content: Record<string, React.ReactNode> = {
     dashboard: (
       <div>
         <p style={{ color: "#00f5a0", fontSize: "0.8rem", letterSpacing: "0.15em", marginBottom: "1rem" }}>MATIG CMS</p>
