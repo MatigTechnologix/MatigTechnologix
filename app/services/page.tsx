@@ -26,6 +26,7 @@ export default async function Services() {
           <div className="cards">
             {cards.map((item: any, index: number) => (
               <article className="card" key={item.id}>
+                {item.image && <img src={item.image} alt={item.title} style={{ width: "100%", height: "200px", objectFit: "cover", borderRadius: "0.5rem", marginBottom: "1rem" }} />}
                 <span className="num">0{index + 1} / Service</span>
                 <h3>{item.title}</h3>
                 <p>{item.detail}</p>
