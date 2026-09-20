@@ -27,7 +27,7 @@ export default function Home() {
 
   useEffect(() => {
     // Fetch settings from Supabase
-    fetch(`${SURL}/rest/v1/Setting?select=key,value`, { headers: H })
+    fetch(`${SURL}/rest/v1/Setting?select=key,value`, { headers: H, cache: "no-store" })
       .then(r => r.json())
       .then((data: any) => {
         if (!Array.isArray(data)) return;
