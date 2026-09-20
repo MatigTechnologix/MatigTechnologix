@@ -1,5 +1,6 @@
-const content: Record<string, React.ReactNode> = {
-
+"use client";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 const SURL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const SKEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 const H = { apikey: SKEY, Authorization: `Bearer ${SKEY}`, "Content-Type": "application/json" };
