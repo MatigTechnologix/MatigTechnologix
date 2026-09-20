@@ -45,14 +45,22 @@ function SettingsSection() {
       });
   }, []);
 
-  const upsert = async (key: string, value: string) => {
-    const check = await fetch(`${SURL}/rest/v1/Setting?key=eq.${key}`, { headers: H }).then(r => r.json());
-    if (Array.isArray(check) && check.length > 0) {
-      await fetch(`${SURL}/rest/v1/Setting?key=eq.${key}`, { method: "PATCH", headers: H, body: JSON.stringify({ value, updatedAt: new Date().toISOString() }) });
-    } else {
-      await fetch(`${SURL}/rest/v1/Setting`, { method: "POST", headers: { ...H, Prefer: "return=minimal" }, body: JSON.stringify({ id: crypto.randomUUID(), key, value, updatedAt: new Date().toISOString() }) });
-    }
-  };
+ const upsert = async (key: string, value: string) => {
+  await fetch(`${SURL}/rest/v1/Setting`, {
+    method: "POST",
+    headers: { 
+      ...H, 
+      Prefer: "resolution=merge-duplicates,return=minimal",
+      "on-conflict": "key"
+    },
+    body: JSON.stringify({ 
+      id: crypto.randomUUID(), 
+      key, 
+      value, 
+      updatedAt: new Date().toISOString() 
+    }),
+  });
+};
 
   const saveKeys = async (keys: string[]) => {
     setSaving(true);
