@@ -4,7 +4,7 @@ import Link from "next/link";
 
 
 
-export function Nav(){return <nav className="nav shell" aria-label="Main navigation"><Link href="/" className="brand"><i/>MATIG</Link><div className="links"><Link href="/services">Services</Link><Link href="/industries">Industries</Link><Link href="/work">Our work</Link><Link href="/about">About</Link><Link href="/resources">Insights</Link><Link href="/blog">Blog</Link></div><Link href="/contact" className="btn primary">Get a Free Sample <span>↗</span></Link><span className="mobile" aria-hidden>☰</span></nav>}
+export function Nav(){return <nav className="nav shell" aria-label="Main navigation"><Link href="/" className="brand"><i/>MATIG</Link><div className="links"><Link href="/services">Services</Link><Link href="/industries">Industries</Link><Link href="/work">Our work</Link><Link href="/about">About</Link><Link href="/resources">Insights</Link></div><Link href="/contact" className="btn primary">Get a Free Sample <span>↗</span></Link><span className="mobile" aria-hidden>☰</span></nav>}
 export function Footer(){
   const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");
