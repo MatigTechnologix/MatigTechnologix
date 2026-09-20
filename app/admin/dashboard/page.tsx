@@ -31,9 +31,9 @@ function SettingsSection() {
   useEffect(() => {
     fetch(`${SURL}/rest/v1/Setting?select=key,value`, { headers: H })
       .then(r => r.json())
-      .then((data: { key: string; value: string }[]) => {
+      .then((data: any) => {
         const obj: Record<string, string> = {};
-        data.forEach(d => obj[d.key] = d.value);
+        if (Array.isArray(data)) data.forEach((d: any) => obj[d.key] = d.value);
         setSettings(obj);
       });
   }, []);
@@ -44,7 +44,7 @@ function SettingsSection() {
       Object.entries(settings).map(([key, value]) =>
         fetch(`${SURL}/rest/v1/Setting`, {
           method: "POST",
-          headers: { ...H, "Prefer": "resolution=merge-duplicates", "Content-Type": "application/json" },
+          headers: { ...H, "Prefer": "resolution=merge-duplicates" },
           body: JSON.stringify({ key, value }),
         })
       )
