@@ -236,6 +236,17 @@ export default function AdminDashboard() {
               </div>
               <div style={{ color: "#00f5a0", fontSize: "0.85rem", marginBottom: "0.5rem" }}>{m.email}</div>
               <div style={{ color: "#8892a4" }}>{m.message}</div>
+              {!m.read && (
+                <button onClick={async () => {
+                  await fetch(`${SURL}/rest/v1/ContactMessage?id=eq.${m.id}`, {
+                    method: "PATCH", headers: H,
+                    body: JSON.stringify({ read: true }),
+                  });
+                  fetchAll();
+                }} style={{ background: "#1e2d40", border: "none", color: "#00f5a0", padding: "0.25rem 0.6rem", borderRadius: "0.4rem", cursor: "pointer", fontSize: "0.75rem", marginTop: "0.5rem" }}>
+                  Mark as Read
+                </button>
+              )}
             </div>
           ))}
       </div>
