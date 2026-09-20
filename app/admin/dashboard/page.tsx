@@ -171,7 +171,7 @@ export default function AdminDashboard() {
     if (editing?.id) {
       await upd(table, editing.id, body);
     } else {
-      await ins(table, { ...body, id: crypto.randomUUID(), createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() });
+      await ins(table, { ...body, createdAt: new Date().toISOString() });
     }
     closeModal();
     fetchAll();
