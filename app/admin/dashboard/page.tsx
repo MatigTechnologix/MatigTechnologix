@@ -24,6 +24,70 @@ const menu = [
   { id: "settings", label: "⚙️ Settings" },
 ];
 
+function SettingsSection() {
+  const [settings, setSettings] = useState<Record<string, string>>({});
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    fetch(`${SURL}/rest/v1/Setting?select=key,value`, { headers: H })
+      .then(r => r.json())
+      .then((data: { key: string; value: string }[]) => {
+        const obj: Record<string, string> = {};
+        data.forEach(d => obj[d.key] = d.value);
+        setSettings(obj);
+      });
+  }, []);
+
+  const saveAll = async () => {
+    setSaving(true);
+    await Promise.all(
+      Object.entries(settings).map(([key, value]) =>
+        fetch(`${SURL}/rest/v1/Setting`, {
+          method: "POST",
+          headers: { ...H, Prefer: "resolution=merge-duplicates" },
+          body: JSON.stringify({ key, value }),
+        })
+      )
+    );
+    setSaving(false);
+    alert("Saved!");
+  };
+
+  const fields = [
+    { key: "site_name", label: "Site Name" },
+    { key: "site_description", label: "Site Description" },
+    { key: "contact_email", label: "Contact Email" },
+    { key: "phone", label: "Phone" },
+    { key: "facebook", label: "Facebook URL" },
+    { key: "linkedin", label: "LinkedIn URL" },
+    { key: "twitter", label: "Twitter URL" },
+  ];
+
+  return (
+    <div>
+      <h2 style={{ color: "#fff", fontSize: "1.8rem", fontWeight: "700", marginBottom: "1.5rem" }}>Settings</h2>
+      <div style={{ background: "#111827", border: "1px solid #1e2d40", borderRadius: "1rem", padding: "2rem", maxWidth: 600 }}>
+        {fields.map(({ key, label }) => (
+          <div key={key} style={{ marginBottom: "1rem" }}>
+            <label style={{ color: "#c8d0dc", fontSize: "0.85rem", display: "block", marginBottom: "0.4rem" }}>{label}</label>
+            <input value={settings[key] || ""} onChange={e => setSettings(p => ({ ...p, [key]: e.target.value }))}
+              style={{ width: "100%", padding: "0.75rem", background: "#0d1520", border: "1px solid #1e2d40", borderRadius: "0.5rem", color: "#fff", boxSizing: "border-box" }} />
+          </div>
+        ))}
+        <div style={{ marginBottom: "1rem" }}>
+          <label style={{ color: "#c8d0dc", fontSize: "0.85rem", display: "block", marginBottom: "0.4rem" }}>Address</label>
+          <textarea rows={3} value={settings["address"] || ""} onChange={e => setSettings(p => ({ ...p, address: e.target.value }))}
+            style={{ width: "100%", padding: "0.75rem", background: "#0d1520", border: "1px solid #1e2d40", borderRadius: "0.5rem", color: "#fff", boxSizing: "border-box", resize: "vertical" }} />
+        </div>
+        <button onClick={saveAll} disabled={saving}
+          style={{ background: "#00f5a0", border: "none", color: "#0a0f1a", padding: "0.75rem 2rem", borderRadius: "0.5rem", fontWeight: 600, cursor: "pointer" }}>
+          {saving ? "Saving..." : "Save Settings"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function Modal({ fields, form, setForm, onSave, onClose, editing }: any) {
   const [uploading, setUploading] = useState(false);
 
@@ -353,14 +417,7 @@ export default function AdminDashboard() {
       </div>
     ),
 
-    settings: (
-      <div>
-        <h2 style={{ color: "#fff", fontSize: "1.8rem", fontWeight: "700", marginBottom: "1.5rem" }}>Settings</h2>
-        <div style={{ background: "#111827", border: "1px solid #1e2d40", borderRadius: "1rem", padding: "2rem" }}>
-          <p style={{ color: "#8892a4" }}>Settings module coming soon.</p>
-        </div>
-      </div>
-    ),
+    settings: <SettingsSection />,
   };
 
   return (
