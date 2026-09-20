@@ -1,4 +1,5 @@
-import { CTA, Footer, PageHero, services as defaultServices } from "../../components/site";
+import { CTA, Footer, PageHero } from "../../components/site";
+import { services as defaultServices } from "../../lib/services-data";
 
 const SURL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const SKEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
