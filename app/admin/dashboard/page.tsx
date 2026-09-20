@@ -25,64 +25,192 @@ const menu = [
 ];
 
 function SettingsSection() {
-  const [settings, setSettings] = useState<Record<string, string>>({});
+  const [tab, setTab] = useState("site");
+  const [s, setS] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState(false);
+  const [msg, setMsg] = useState("");
+  const [creds, setCreds] = useState({ email: "admin@matig.com", password: "", confirm: "" });
+  const [uploading, setUploading] = useState(false);
+
+  const notify = (m: string) => { setMsg(m); setTimeout(() => setMsg(""), 3000); };
 
   useEffect(() => {
     fetch(`${SURL}/rest/v1/Setting?select=key,value`, { headers: H })
       .then(r => r.json())
       .then((data: any) => {
+        if (!Array.isArray(data)) return;
         const obj: Record<string, string> = {};
-        if (Array.isArray(data)) data.forEach((d: any) => obj[d.key] = d.value);
-        setSettings(obj);
+        data.forEach((d: any) => { obj[d.key] = d.value; });
+        setS(obj);
       });
   }, []);
 
-  const saveAll = async () => {
-    setSaving(true);
-    await Promise.all(
-      Object.entries(settings).map(([key, value]) =>
-        fetch(`${SURL}/rest/v1/Setting`, {
-          method: "POST",
-          headers: { ...H, "Prefer": "resolution=merge-duplicates" },
-          body: JSON.stringify({ key, value }),
-        })
-      )
-    );
-    setSaving(false);
-    alert("Saved!");
+  const upsert = async (key: string, value: string) => {
+    const check = await fetch(`${SURL}/rest/v1/Setting?key=eq.${key}`, { headers: H }).then(r => r.json());
+    if (Array.isArray(check) && check.length > 0) {
+      await fetch(`${SURL}/rest/v1/Setting?key=eq.${key}`, { method: "PATCH", headers: H, body: JSON.stringify({ value, updatedAt: new Date().toISOString() }) });
+    } else {
+      await fetch(`${SURL}/rest/v1/Setting`, { method: "POST", headers: { ...H, Prefer: "return=minimal" }, body: JSON.stringify({ id: crypto.randomUUID(), key, value, updatedAt: new Date().toISOString() }) });
+    }
   };
 
-  const fields = [
-    { key: "site_name", label: "Site Name" },
-    { key: "site_description", label: "Site Description" },
-    { key: "contact_email", label: "Contact Email" },
-    { key: "phone", label: "Phone" },
-    { key: "facebook", label: "Facebook URL" },
-    { key: "linkedin", label: "LinkedIn URL" },
-    { key: "twitter", label: "Twitter URL" },
+  const saveKeys = async (keys: string[]) => {
+    setSaving(true);
+    try {
+      await Promise.all(keys.map(k => upsert(k, s[k] || "")));
+      notify("✅ Saved successfully!");
+    } catch { notify("❌ Save failed"); }
+    setSaving(false);
+  };
+
+  const uploadLogo = async (e: any) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploading(true);
+    const fd = new FormData();
+    fd.append("file", file);
+    fd.append("upload_preset", "matig_uploads");
+    try {
+      const res = await fetch("https://api.cloudinary.com/v1_1/folpmq9g/image/upload", { method: "POST", body: fd });
+      const data = await res.json();
+      setS(p => ({ ...p, logo: data.secure_url }));
+      await upsert("logo", data.secure_url);
+      notify("✅ Logo uploaded!");
+    } catch { notify("❌ Upload failed"); }
+    setUploading(false);
+  };
+
+  const saveCreds = () => {
+    if (!creds.password) return notify("❌ Enter new password");
+    if (creds.password !== creds.confirm) return notify("❌ Passwords do not match");
+    localStorage.setItem("matig-creds", JSON.stringify({ email: creds.email, password: creds.password }));
+    notify("✅ Saved! Update app/admin/page.tsx for production.");
+  };
+
+  const inp: any = { width: "100%", padding: "0.75rem", background: "#0d1520", border: "1px solid #1e2d40", borderRadius: "0.5rem", color: "#fff", boxSizing: "border-box", marginTop: "0.4rem", fontFamily: "inherit" };
+
+  const tabs = [
+    { id: "site", label: "🌐 Site Info" },
+    { id: "logo", label: "🎨 Logo & Brand" },
+    { id: "homepage", label: "🏠 Homepage" },
+    { id: "credentials", label: "🔐 Admin Login" },
   ];
 
   return (
-    <div>
-      <h2 style={{ color: "#fff", fontSize: "1.8rem", fontWeight: "700", marginBottom: "1.5rem" }}>Settings</h2>
-      <div style={{ background: "#111827", border: "1px solid #1e2d40", borderRadius: "1rem", padding: "2rem", maxWidth: 600 }}>
-        {fields.map(({ key, label }) => (
-          <div key={key} style={{ marginBottom: "1rem" }}>
-            <label style={{ color: "#c8d0dc", fontSize: "0.85rem", display: "block", marginBottom: "0.4rem" }}>{label}</label>
-            <input value={settings[key] || ""} onChange={e => setSettings(p => ({ ...p, [key]: e.target.value }))}
-              style={{ width: "100%", padding: "0.75rem", background: "#0d1520", border: "1px solid #1e2d40", borderRadius: "0.5rem", color: "#fff", boxSizing: "border-box" }} />
-          </div>
-        ))}
-        <div style={{ marginBottom: "1rem" }}>
-          <label style={{ color: "#c8d0dc", fontSize: "0.85rem", display: "block", marginBottom: "0.4rem" }}>Address</label>
-          <textarea rows={3} value={settings["address"] || ""} onChange={e => setSettings(p => ({ ...p, address: e.target.value }))}
-            style={{ width: "100%", padding: "0.75rem", background: "#0d1520", border: "1px solid #1e2d40", borderRadius: "0.5rem", color: "#fff", boxSizing: "border-box", resize: "vertical" }} />
+    <div style={{ maxWidth: "680px" }}>
+      <h2 style={{ color: "#fff", fontSize: "1.8rem", fontWeight: "700", marginBottom: "0.5rem" }}>Settings</h2>
+      <p style={{ color: "#8892a4", marginBottom: "1.5rem", fontSize: "0.9rem" }}>Manage your site configuration.</p>
+
+      {msg && (
+        <div style={{ background: msg.includes("❌") ? "rgba(255,107,107,0.1)" : "rgba(0,245,160,0.1)", border: `1px solid ${msg.includes("❌") ? "#ff6b6b" : "#00f5a0"}`, borderRadius: "0.6rem", padding: "0.75rem 1rem", marginBottom: "1.5rem", color: msg.includes("❌") ? "#ff6b6b" : "#00f5a0", fontSize: "0.88rem" }}>
+          {msg}
         </div>
-        <button onClick={saveAll} disabled={saving}
-          style={{ background: "#00f5a0", border: "none", color: "#0a0f1a", padding: "0.75rem 2rem", borderRadius: "0.5rem", fontWeight: 600, cursor: "pointer" }}>
-          {saving ? "Saving..." : "Save Settings"}
-        </button>
+      )}
+
+      {/* Tab Pills */}
+      <div style={{ display: "flex", background: "#111827", borderRadius: "0.75rem", padding: "0.3rem", marginBottom: "2rem", gap: "0.25rem" }}>
+        {tabs.map(t => (
+          <button key={t.id} onClick={() => setTab(t.id)} style={{ flex: 1, padding: "0.6rem 0.5rem", background: tab === t.id ? "#1e2d40" : "transparent", border: "none", borderRadius: "0.5rem", color: tab === t.id ? "#fff" : "#8892a4", cursor: "pointer", fontSize: "0.82rem", fontWeight: tab === t.id ? 600 : 400 }}>
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      <div style={{ background: "#111827", border: "1px solid #1e2d40", borderRadius: "1rem", padding: "2rem" }}>
+
+        {/* Site Info Tab */}
+        {tab === "site" && (
+          <div>
+            <h3 style={{ color: "#fff", marginBottom: "1.5rem", fontSize: "1.1rem" }}>Site Information</h3>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 1.5rem" }}>
+              {[["site_name","Site Name"],["contact_email","Contact Email"],["phone","Phone Number"],["linkedin","LinkedIn URL"],["twitter","Twitter URL"],["facebook","Facebook URL"]].map(([key, label]) => (
+                <div key={key} style={{ marginBottom: "1.25rem" }}>
+                  <label style={{ color: "#8892a4", fontSize: "0.78rem", letterSpacing: "0.08em", textTransform: "uppercase" as any }}>{label}</label>
+                  <input value={s[key] || ""} onChange={e => setS(p => ({ ...p, [key]: e.target.value }))} style={inp} />
+                </div>
+              ))}
+            </div>
+            <div style={{ marginBottom: "1.25rem" }}>
+              <label style={{ color: "#8892a4", fontSize: "0.78rem", letterSpacing: "0.08em", textTransform: "uppercase" as any }}>Site Description</label>
+              <input value={s["site_description"] || ""} onChange={e => setS(p => ({ ...p, site_description: e.target.value }))} style={inp} />
+            </div>
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label style={{ color: "#8892a4", fontSize: "0.78rem", letterSpacing: "0.08em", textTransform: "uppercase" as any }}>Address</label>
+              <textarea rows={2} value={s["address"] || ""} onChange={e => setS(p => ({ ...p, address: e.target.value }))} style={{ ...inp, resize: "none" }} />
+            </div>
+            <button onClick={() => saveKeys(["site_name","site_description","contact_email","phone","linkedin","twitter","facebook","address"])} disabled={saving}
+              style={{ background: "#00f5a0", border: "none", color: "#0a0f1a", padding: "0.75rem 2rem", borderRadius: "0.5rem", fontWeight: 600, cursor: "pointer" }}>
+              {saving ? "Saving..." : "Save Site Info"}
+            </button>
+          </div>
+        )}
+
+        {/* Logo Tab */}
+        {tab === "logo" && (
+          <div>
+            <h3 style={{ color: "#fff", marginBottom: "1.5rem", fontSize: "1.1rem" }}>Logo & Brand</h3>
+            <div style={{ background: "#0d1520", borderRadius: "0.75rem", padding: "1.5rem", marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: "1.5rem" }}>
+              {s["logo"]
+                ? <img src={s["logo"]} alt="Logo" style={{ height: "50px", objectFit: "contain" }} />
+                : <div style={{ width: "80px", height: "50px", background: "#1e2d40", borderRadius: "0.5rem", display: "flex", alignItems: "center", justifyContent: "center", color: "#8892a4", fontSize: "0.75rem" }}>No logo</div>}
+              <label style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.6rem 1.2rem", background: "#1e2d40", borderRadius: "0.5rem", cursor: "pointer", color: "#fff", fontSize: "0.85rem" }}>
+                {uploading ? "Uploading..." : "📁 Upload Logo"}
+                <input type="file" accept="image/*" onChange={uploadLogo} style={{ display: "none" }} disabled={uploading} />
+              </label>
+            </div>
+            {[["logo","Logo URL"],["site_name","Site Name"],["tagline","Tagline"]].map(([key, label]) => (
+              <div key={key} style={{ marginBottom: "1.25rem" }}>
+                <label style={{ color: "#8892a4", fontSize: "0.78rem", letterSpacing: "0.08em", textTransform: "uppercase" as any }}>{label}</label>
+                <input value={s[key] || ""} onChange={e => setS(p => ({ ...p, [key]: e.target.value }))} style={inp} placeholder={key === "logo" ? "https://..." : ""} />
+              </div>
+            ))}
+            <button onClick={() => saveKeys(["logo","site_name","tagline"])} disabled={saving}
+              style={{ background: "#00f5a0", border: "none", color: "#0a0f1a", padding: "0.75rem 2rem", borderRadius: "0.5rem", fontWeight: 600, cursor: "pointer" }}>
+              {saving ? "Saving..." : "Save Brand"}
+            </button>
+          </div>
+        )}
+
+        {/* Homepage Tab */}
+        {tab === "homepage" && (
+          <div>
+            <h3 style={{ color: "#fff", marginBottom: "1.5rem", fontSize: "1.1rem" }}>Homepage Hero Content</h3>
+            {[["hero_eyebrow","Eyebrow Text"],["hero_title","Hero Title"],["hero_cta1","CTA Button 1"],["hero_cta2","CTA Button 2"]].map(([key, label]) => (
+              <div key={key} style={{ marginBottom: "1.25rem" }}>
+                <label style={{ color: "#8892a4", fontSize: "0.78rem", letterSpacing: "0.08em", textTransform: "uppercase" as any }}>{label}</label>
+                <input value={s[key] || ""} onChange={e => setS(p => ({ ...p, [key]: e.target.value }))} style={inp} />
+              </div>
+            ))}
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label style={{ color: "#8892a4", fontSize: "0.78rem", letterSpacing: "0.08em", textTransform: "uppercase" as any }}>Hero Description</label>
+              <textarea rows={3} value={s["hero_copy"] || ""} onChange={e => setS(p => ({ ...p, hero_copy: e.target.value }))} style={{ ...inp, resize: "vertical" }} />
+            </div>
+            <button onClick={() => saveKeys(["hero_eyebrow","hero_title","hero_copy","hero_cta1","hero_cta2"])} disabled={saving}
+              style={{ background: "#00f5a0", border: "none", color: "#0a0f1a", padding: "0.75rem 2rem", borderRadius: "0.5rem", fontWeight: 600, cursor: "pointer" }}>
+              {saving ? "Saving..." : "Save Homepage"}
+            </button>
+          </div>
+        )}
+
+        {/* Credentials Tab */}
+        {tab === "credentials" && (
+          <div>
+            <h3 style={{ color: "#fff", marginBottom: "1.5rem", fontSize: "1.1rem" }}>Change Admin Login</h3>
+            {[["email","Email","email"],["password","New Password","password"],["confirm","Confirm Password","password"]].map(([key, label, type]) => (
+              <div key={key} style={{ marginBottom: "1.25rem" }}>
+                <label style={{ color: "#8892a4", fontSize: "0.78rem", letterSpacing: "0.08em", textTransform: "uppercase" as any }}>{label}</label>
+                <input type={type} value={(creds as any)[key] || ""} onChange={e => setCreds(p => ({ ...p, [key]: e.target.value }))} style={inp} placeholder={key !== "email" ? "Enter " + label.toLowerCase() : ""} />
+              </div>
+            ))}
+            <div style={{ background: "rgba(255,200,0,0.06)", border: "1px solid rgba(255,200,0,0.15)", borderRadius: "0.6rem", padding: "0.85rem 1rem", marginBottom: "1.5rem", color: "#ffc800", fontSize: "0.82rem" }}>
+              ⚠️ For production: update credentials in app/admin/page.tsx and redeploy.
+            </div>
+            <button onClick={saveCreds} style={{ background: "#00f5a0", border: "none", color: "#0a0f1a", padding: "0.75rem 2rem", borderRadius: "0.5rem", fontWeight: 600, cursor: "pointer" }}>
+              Update Credentials
+            </button>
+          </div>
+        )}
+
       </div>
     </div>
   );
