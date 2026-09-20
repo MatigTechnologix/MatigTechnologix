@@ -35,7 +35,7 @@ function Modal({ fields, form, setForm, onSave, onClose, editing }: any) {
     fd.append("file", file);
     fd.append("upload_preset", "matig_uploads");
     try {
-      const res = await fetch("https://api.cloudinary.com/v1_1/matig/image/upload", { method: "POST", body: fd });
+      const res = await fetch("https://api.cloudinary.com/v1_1/folpmq9g/image/upload", { method: "POST", body: fd });
       const data = await res.json();
       setForm((p: any) => ({ ...p, [key]: data.secure_url }));
     } catch {
