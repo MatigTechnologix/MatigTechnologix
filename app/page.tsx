@@ -3,8 +3,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CTA, Footer, Nav } from "../components/site";
 
-const SURL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const SKEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const SURL = "https://uezdgldpvynhrfcqihip.supabase.co";
+const SKEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlemRnbGRwdnluaHJmY3FpaGlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk4MTIwOTYsImV4cCI6MjEwNTM4ODA5Nn0.aVcl4eYwohQdHQPbFqNm5L55G18e1AwqCHsjm5kJQ4o";
 const H = { apikey: SKEY, Authorization: `Bearer ${SKEY}` };
 
 const defaultHero = {
