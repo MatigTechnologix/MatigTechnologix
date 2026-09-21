@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Footer, PageHero } from "../../components/site";
+import { Footer, PageHero } from "../../../components/site";
 
 export default function Contact() {
   const [form, setForm] = useState({

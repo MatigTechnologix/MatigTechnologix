@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Footer, PageHero } from "../../components/site";
+import { Footer, PageHero } from "../../../components/site";
 
 const SURL = "https://flrccmjaiyutynhydxeo.supabase.co";
 const SKEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZscmNjbWphaXl1dHluaHl4eGUiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTc4OTkwMjgwNCwiZXhwIjoyMTA1NDc4ODA0fQ.u0Qd1doTLrghPh2iVQ6PfoM2vnLX7rDQJqcHh2t03I0";
