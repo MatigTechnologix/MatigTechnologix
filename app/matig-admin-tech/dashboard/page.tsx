@@ -46,11 +46,20 @@ function SettingsSection() {
   }, []);
 
  const upsert = async (key: string, value: string) => {
-  await fetch(`${SURL}/rest/v1/Setting`, {
-    method: "POST",
-    headers: { ...H, Prefer: "resolution=merge-duplicates" },
-    body: JSON.stringify({ key, value }),
-  });
+  const existing = await fetch(`${SURL}/rest/v1/Setting?key=eq.${key}`, { headers: H }).then(r => r.json());
+  if (existing.length > 0) {
+    await fetch(`${SURL}/rest/v1/Setting?key=eq.${key}`, {
+      method: "PATCH",
+      headers: H,
+      body: JSON.stringify({ value }),
+    });
+  } else {
+    await fetch(`${SURL}/rest/v1/Setting`, {
+      method: "POST",
+      headers: H,
+      body: JSON.stringify({ key, value }),
+    });
+  }
 };
   const saveKeys = async (keys: string[]) => {
     setSaving(true);
