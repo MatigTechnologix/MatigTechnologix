@@ -27,7 +27,7 @@ export function Footer(){
         </div>
         <div><h4>Services</h4><Link href="/services">Lead generation</Link><Link href="/services">LinkedIn outreach</Link><Link href="/services">Web development</Link></div>
         <div><h4>Company</h4><Link href="/about">About MATIG</Link><Link href="/case-studies">Case Studies</Link><Link href="/team">Our Team</Link><Link href="/testimonials">Testimonials</Link><Link href="/blog">Blog</Link><Link href="/contact">Contact</Link></div>
-        <div><h4>Connect</h4><a href="mailto:hello@matig.com">hello@matig.com</a><Link href="/resources">Resources</Link></div>
+        <div><h4>Connect</h4><a href="mailto:hello@matigtechnologix.online">hello@matigtechnologix.online</a><Link href="/resources">Resources</Link></div>
       </div>
       <div className="shell copyright"><span>© 2026 MATIG Technologix. All rights reserved.</span><span>Built for meaningful growth.</span></div>
     </footer>
