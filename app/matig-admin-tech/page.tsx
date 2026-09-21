@@ -13,9 +13,9 @@ export default function AdminLogin() {
     setLoading(true);
     setError("");
 
-    if (form.email === "admin@matig.com" && form.password === "Matig@2026") {
+    if (form.email === "hello@matigtechnologix.online" && form.password === "Matig@technologix.2026") {
       localStorage.setItem("matig-admin", "true");
-      router.push("/admin/dashboard");
+      router.push("/matig-admin-tech/dashboard");
     } else {
       setError("Invalid email or password");
     }

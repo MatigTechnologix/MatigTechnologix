@@ -330,7 +330,7 @@ export default function AdminDashboard() {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    if (!localStorage.getItem("matig-admin")) router.push("/admin");
+    if (!localStorage.getItem("matig-admin")) router.push("/matig-admin-tech");
     fetchAll();
   }, []);
 
