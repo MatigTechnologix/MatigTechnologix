@@ -87,11 +87,8 @@ function SettingsSection() {
 
   const inp: any = { width: "100%", padding: "0.75rem", background: "#0d1520", border: "1px solid #1e2d40", borderRadius: "0.5rem", color: "#fff", boxSizing: "border-box", marginTop: "0.4rem", fontFamily: "inherit" };
 
-  const tabs = [
+ const tabs = [
     { id: "site", label: "🌐 Site Info" },
-    { id: "logo", label: "🎨 Logo & Brand" },
-    { id: "homepage", label: "🏠 Homepage" },
-    { id: "credentials", label: "🔐 Admin Login" },
   ];
 
   return (
