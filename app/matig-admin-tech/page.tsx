@@ -13,7 +13,7 @@ export default function AdminLogin() {
     setLoading(true);
     setError("");
 
-    if (form.email === "hello@matigtechnologix.online" && form.password === "Matig@technologix.2026") {
+    if (form.email === "admin@matigtechnologix.online" && form.password === "zxkP2F&[2udjabo") {
       localStorage.setItem("matig-admin", "true");
       router.push("/matig-admin-tech/dashboard");
     } else {
