@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Nav, Footer } from "../../components/site";
+import { Footer, PageHero } from "../../components/site";
 
-const SURL = "https://flrccmjaiyutynhydxeo.supabase.co";
-const SKEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZscmNjbWphaXl1dHluaHlkeGVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5MDI4MDQsImV4cCI6MjEwNTQ3ODgwNH0.u0Qd1doTLrghPh2iVQ6PfoM2vnLX7rDQJqcHh2t03I0";
+const SURL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const SKEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 const H = { apikey: SKEY, Authorization: `Bearer ${SKEY}` };
 
 export default function CaseStudies() {
@@ -19,15 +19,8 @@ export default function CaseStudies() {
 
   return (
     <>
-      <Nav />
+      <PageHero eyebrow="Case Studies" title="Real results for real teams." copy="How we have helped B2B teams build better pipelines." />
       <main>
-        <section className="hero grid-bg" style={{ minHeight: "40vh" }}>
-          <div className="shell hero-copy">
-            <span className="eyebrow">Case Studies</span>
-            <h1>Real results for real teams.</h1>
-            <p>How we have helped B2B teams build better pipelines.</p>
-          </div>
-        </section>
         <section className="shell" style={{ padding: "4rem 0" }}>
           {loading ? <p style={{ color: "#8892a4" }}>Loading...</p> :
            items.length === 0 ? <p style={{ color: "#8892a4", textAlign: "center", padding: "4rem 0" }}>No case studies yet.</p> :
