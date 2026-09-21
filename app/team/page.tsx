@@ -1,4 +1,4 @@
-import { Footer, Nav } from "../../components/site";
+import { Footer, PageHero } from "../../components/site";
 
 const SURL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const SKEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
@@ -15,9 +15,8 @@ export default async function TeamPage() {
   const members = await getTeam();
   return (
     <>
-      <Nav />
+      <PageHero eyebrow="Our Team" title="The people behind MATIG." copy="A dedicated team of specialists who care about the details." />
       <main style={{ maxWidth: 1100, margin: "0 auto", padding: "3rem 1rem" }}>
-        <h1 style={{ fontSize: "2.5rem", marginBottom: "2rem" }}>Our Team</h1>
         {!members?.length ? <p style={{ color: "#888" }}>No team members yet.</p> :
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(250px,1fr))", gap: "2rem" }}>
             {members.map((m: any) => (
