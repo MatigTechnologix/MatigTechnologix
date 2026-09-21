@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { CTA, Footer, Nav } from "../components/site";
+import { CTA, Footer } from "../components/site";
 
 const SURL = "https://flrccmjaiyutynhydxeo.supabase.co";
 const SKEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZscmNjbWphaXl1dHluaHlkeGVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5MDI4MDQsImV4cCI6MjEwNTQ3ODgwNH0.u0Qd1doTLrghPh2iVQ6PfoM2vnLX7rDQJqcHh2t03I0";
@@ -26,7 +26,6 @@ export default function Home() {
   const [services, setServices] = useState(defaultServices);
 
   useEffect(() => {
-    // Fetch settings from Supabase
     fetch(`${SURL}/rest/v1/Setting?select=key,value`, { headers: H, cache: "no-store" })
       .then(r => r.json())
       .then((data: any) => {
@@ -42,7 +41,6 @@ export default function Home() {
         });
       }).catch(() => {});
 
-    // Fetch services from Supabase
     fetch(`${SURL}/rest/v1/Service?status=eq.Published&order=createdAt.asc`, { headers: H })
       .then(r => r.json())
       .then((data: any) => {
@@ -52,7 +50,6 @@ export default function Home() {
 
   return (
     <>
-      <Nav />
       <main>
         <section className="hero grid-bg">
           <div className="orb one" />

@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Nav, Footer, PageHero } from "../../components/site";
+import { Footer, PageHero } from "../../components/site";
 
 const SURL = "https://flrccmjaiyutynhydxeo.supabase.co";
-const SKEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZscmNjbWphaXl1dHluaHlkeGVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5MDI4MDQsImV4cCI6MjEwNTQ3ODgwNH0.u0Qd1doTLrghPh2iVQ6PfoM2vnLX7rDQJqcHh2t03I0";
+const SKEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZscmNjbWphaXl1dHluaHl4eGUiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTc4OTkwMjgwNCwiZXhwIjoyMTA1NDc4ODA0fQ.u0Qd1doTLrghPh2iVQ6PfoM2vnLX7rDQJqcHh2t03I0";
 const H = { apikey: SKEY, Authorization: `Bearer ${SKEY}` };
 
 const fallback = [
@@ -30,9 +30,13 @@ export default function Services() {
 
   return (
     <>
-      <Nav />
       <main>
-        <PageHero eyebrow="What we do" title="Services built for B2B growth." copy="Every service is designed to move the right people closer to you." />
+        <PageHero
+          eyebrow="What we do"
+          title="Services built for B2B growth."
+          copy="Every service is designed to move the right people closer to you."
+        />
+
         <section className="shell" style={{ padding: "4rem 0" }}>
           {loading ? <p style={{ color: "#8892a4" }}>Loading...</p> :
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "2rem" }}>
