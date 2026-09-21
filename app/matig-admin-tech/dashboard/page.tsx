@@ -133,9 +133,20 @@ function SettingsSection() {
               <label style={{ color: "#8892a4", fontSize: "0.78rem", letterSpacing: "0.08em", textTransform: "uppercase" as any }}>Address</label>
               <textarea rows={2} value={s["address"] || ""} onChange={e => setS(p => ({ ...p, address: e.target.value }))} style={{ ...inp, resize: "none" }} />
             </div>
-            <button onClick={() => saveKeys(["site_name","site_description","contact_email","phone","linkedin","twitter","facebook","address"])} disabled={saving}
+           <h3 style={{ color: "#fff", margin: "1.5rem 0 1rem", fontSize: "1.1rem" }}>Homepage Hero</h3>
+            {[["hero_eyebrow","Eyebrow Text"],["hero_title","Hero Title"],["hero_cta1","CTA Button 1"],["hero_cta2","CTA Button 2"]].map(([key, label]) => (
+              <div key={key} style={{ marginBottom: "1.25rem" }}>
+                <label style={{ color: "#8892a4", fontSize: "0.78rem", letterSpacing: "0.08em", textTransform: "uppercase" as any }}>{label}</label>
+                <input value={s[key] || ""} onChange={e => setS(p => ({ ...p, [key]: e.target.value }))} style={inp} />
+              </div>
+            ))}
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label style={{ color: "#8892a4", fontSize: "0.78rem", letterSpacing: "0.08em", textTransform: "uppercase" as any }}>Hero Description</label>
+              <textarea rows={3} value={s["hero_copy"] || ""} onChange={e => setS(p => ({ ...p, hero_copy: e.target.value }))} style={{ ...inp, resize: "vertical" }} />
+            </div>
+            <button onClick={() => saveKeys(["site_name","site_description","contact_email","phone","linkedin","twitter","facebook","address","hero_eyebrow","hero_title","hero_copy","hero_cta1","hero_cta2"])} disabled={saving}
               style={{ background: "#00f5a0", border: "none", color: "#0a0f1a", padding: "0.75rem 2rem", borderRadius: "0.5rem", fontWeight: 600, cursor: "pointer" }}>
-              {saving ? "Saving..." : "Save Site Info"}
+              {saving ? "Saving..." : "Save All Settings"}
             </button>
           </div>
         )}
