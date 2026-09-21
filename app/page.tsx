@@ -3,8 +3,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CTA, Footer, Nav } from "../components/site";
 
-const SURL = "https://uezdgldpvynhrfcqihip.supabase.co";
-const SKEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlemRnbGRwdnluaHJmY3FpaGlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk4MTIwOTYsImV4cCI6MjEwNTM4ODA5Nn0.aVcl4eYwohQdHQPbFqNm5L55G18e1AwqCHsjm5kJQ4o";
+const SURL = "https://flrccmjaiyutynhydxeo.supabase.co";
+const SKEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZscmNjbWphaXl1dHluaHlkeGVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5MDI4MDQsImV4cCI6MjEwNTQ3ODgwNH0.u0Qd1doTLrghPh2iVQ6PfoM2vnLX7rDQJqcHh2t03I0";
 const H = { apikey: SKEY, Authorization: `Bearer ${SKEY}` };
 
 const defaultHero = {
