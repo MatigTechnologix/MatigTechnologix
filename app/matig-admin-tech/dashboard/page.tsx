@@ -46,10 +46,10 @@ function SettingsSection() {
   }, []);
 
  const upsert = async (key: string, value: string) => {
-  await fetch(`${SURL}/rest/v1/Setting?key=eq.${key}`, {
-    method: "PATCH",
-    headers: H,
-    body: JSON.stringify({ value, updatedAt: new Date().toISOString() }),
+  await fetch(`${SURL}/rest/v1/Setting`, {
+    method: "POST",
+    headers: { ...H, Prefer: "resolution=merge-duplicates" },
+    body: JSON.stringify({ key, value }),
   });
 };
   const saveKeys = async (keys: string[]) => {
