@@ -1,54 +1,46 @@
-import { CTA, Footer, PageHero } from "../../components/site";
+"use client";
+import { useEffect, useState } from "react";
+import { Nav, Footer, CTA } from "../../components/site";
 
-const SURL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const SKEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const SURL = "https://flrccmjaiyutynhydxeo.supabase.co";
+const SKEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZscmNjbWphaXl1dHluaHlkeGVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5MDI4MDQsImV4cCI6MjEwNTQ3ODgwNH0.u0Qd1doTLrghPh2iVQ6PfoM2vnLX7rDQJqcHh2t03I0";
+const H = { apikey: SKEY, Authorization: `Bearer ${SKEY}` };
 
-async function getPortfolio() {
-  try {
-    const res = await fetch(`${SURL}/rest/v1/Portfolio?status=eq.Published&order=createdAt.desc`, {
-      headers: { apikey: SKEY, Authorization: `Bearer ${SKEY}` },
-      cache: "no-store",
-    });
-    const data = await res.json();
-    return Array.isArray(data) && data.length > 0 ? data : null;
-  } catch { return null; }
-}
+export default function Work() {
+  const [items, setItems] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-const staticWork = [
-  ["FINTECH", "Reframing a specialist lender's outbound motion", "41%", "More qualified replies"],
-  ["SAAS", "Turning product complexity into a buyer-ready website", "2.1×", "Demo conversion lift"],
-  ["CONSULTING", "Finding whitespace in a crowded enterprise market", "318", "New buying contacts"],
-];
+  useEffect(() => {
+    fetch(`${SURL}/rest/v1/Portfolio?status=eq.Published&order=createdAt.desc`, { headers: H })
+      .then(r => r.json())
+      .then(data => { setItems(Array.isArray(data) ? data : []); setLoading(false); });
+  }, []);
 
-export default async function Work() {
-  const managed = await getPortfolio();
   return (
     <>
-      <PageHero eyebrow="Selected work" title="Work made to move a business forward." copy="A snapshot of how research, outreach, and digital craft come together in real growth engagements." />
+      <Nav />
       <main>
-        <section className="shell">
-          <div className="filter">
-            <button>All work</button><button>Outreach</button><button>Research</button><button>Digital</button>
+        <section className="hero grid-bg" style={{ minHeight: "40vh" }}>
+          <div className="shell hero-copy">
+            <span className="eyebrow">Our Work</span>
+            <h1>Projects we are proud of.</h1>
+            <p>A selection of work from our team.</p>
           </div>
-          <div className="cards">
-            {managed
-              ? managed.map((item: any) => (
-                <article className="card case" key={item.id}>
-                  {item.image && <img src={item.image} alt={item.title} style={{ width: "100%", height: "200px", objectFit: "cover", borderRadius: "0.5rem", marginBottom: "1rem" }} />}
-                  <span className="num">{item.title}</span>
-                  <h3>{item.detail}</h3>
-                </article>
-              ))
-              : staticWork.map(x => (
-                <article className="card case" key={x[1]}>
-                  <span className="num">{x[0]}</span>
-                  <h3>{x[1]}</h3>
-                  <div className="result">{x[2]}</div>
-                  <p>{x[3]}</p>
-                </article>
-              ))
-            }
-          </div>
+        </section>
+        <section className="shell" style={{ padding: "4rem 0" }}>
+          {loading ? <p style={{ color: "#8892a4" }}>Loading...</p> :
+           items.length === 0 ? <p style={{ color: "#8892a4", textAlign: "center", padding: "4rem 0" }}>No projects yet.</p> :
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "2rem" }}>
+            {items.map(item => (
+              <div key={item.id} style={{ background: "#111827", border: "1px solid #1e2d40", borderRadius: "1rem", overflow: "hidden" }}>
+                {item.image && <img src={item.image} alt={item.title} style={{ width: "100%", height: "220px", objectFit: "cover" }} />}
+                <div style={{ padding: "1.5rem" }}>
+                  <h2 style={{ color: "#fff", fontSize: "1.2rem", fontWeight: "600", margin: "0 0 0.5rem" }}>{item.title}</h2>
+                  <p style={{ color: "#8892a4", fontSize: "0.9rem", lineHeight: "1.6" }}>{item.detail}</p>
+                </div>
+              </div>
+            ))}
+          </div>}
         </section>
         <CTA />
       </main>
