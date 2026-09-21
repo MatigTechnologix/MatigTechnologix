@@ -1,4 +1,4 @@
-import { Footer, Nav } from "../../components/site";
+import { Footer, PageHero } from "../../components/site";
 
 const SURL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const SKEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
@@ -15,9 +15,8 @@ export default async function TestimonialsPage() {
   const items = await getTestimonials();
   return (
     <>
-      <Nav />
+      <PageHero eyebrow="Testimonials" title="What our clients say." copy="Real feedback from real B2B teams we have worked with." />
       <main style={{ maxWidth: 1100, margin: "0 auto", padding: "3rem 1rem" }}>
-        <h1 style={{ fontSize: "2.5rem", marginBottom: "2rem" }}>Testimonials</h1>
         {!items?.length ? <p style={{ color: "#888" }}>No testimonials yet.</p> :
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(300px,1fr))", gap: "2rem" }}>
             {items.map((item: any) => (
