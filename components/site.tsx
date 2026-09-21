@@ -34,6 +34,6 @@ export function Footer(){
   );
 }
 
-export function PageHero({eyebrow,title,copy}:{eyebrow:string,title:string,copy:string}){return <><Nav/><header className="page-hero grid-bg"><div className="orb one"/><div className="shell" style={{position:"relative"}}><span className="eyebrow">{eyebrow}</span><h1>{title}</h1><p>{copy}</p></div></header></>}
+export function PageHero({eyebrow,title,copy}:{eyebrow:string,title:string,copy?:string}){return <header className="page-hero grid-bg"><div className="orb one"/><div className="shell" style={{position:"relative"}}><span className="eyebrow">{eyebrow}</span><h1>{title}</h1>{copy&&<p>{copy}</p>}</div></header>}
 export function CTA(){return <section className="cta"><div className="shell cta-inner"><div><span className="eyebrow" style={{color:"#a2ffe1"}}>Start with proof</span><h2>See what thoughtful outreach can do for your pipeline.</h2></div><Link className="btn primary" href="/contact">Get a Free Sample ↗</Link></div></section>}
 export function Layout({children}:{children:React.ReactNode}){return <>{children}<Footer/></>}

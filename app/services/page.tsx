@@ -1,11 +1,20 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Nav, Footer } from "../../components/site";
+import { Nav, Footer, PageHero } from "../../components/site";
 
 const SURL = "https://flrccmjaiyutynhydxeo.supabase.co";
 const SKEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZscmNjbWphaXl1dHluaHlkeGVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5MDI4MDQsImV4cCI6MjEwNTQ3ODgwNH0.u0Qd1doTLrghPh2iVQ6PfoM2vnLX7rDQJqcHh2t03I0";
 const H = { apikey: SKEY, Authorization: `Bearer ${SKEY}` };
+
+const fallback = [
+  { id: "1", title: "Lead Generation", detail: "Targeted prospect lists designed around your exact ICP.", slug: "lead-generation", image: null },
+  { id: "2", title: "LinkedIn Outreach", detail: "Thoughtful conversations that earn qualified replies.", slug: "linkedin-outreach", image: null },
+  { id: "3", title: "B2B Prospect Research", detail: "Decision-maker intelligence your sales team can trust.", slug: "prospect-research", image: null },
+  { id: "4", title: "Digital Marketing", detail: "Campaigns built to generate attention and action.", slug: "digital-marketing", image: null },
+  { id: "5", title: "Branding & Design", detail: "Distinct visual systems for credible B2B brands.", slug: "branding-design", image: null },
+  { id: "6", title: "Website Development", detail: "Fast, considered sites engineered to convert.", slug: "website-development", image: null },
+];
 
 export default function Services() {
   const [items, setItems] = useState<any[]>([]);
@@ -17,28 +26,13 @@ export default function Services() {
       .then(data => { setItems(Array.isArray(data) ? data : []); setLoading(false); });
   }, []);
 
-  const fallback = [
-    { id: "1", title: "Lead Generation", detail: "Targeted prospect lists designed around your exact ICP.", slug: "lead-generation", image: null },
-    { id: "2", title: "LinkedIn Outreach", detail: "Thoughtful conversations that earn qualified replies.", slug: "linkedin-outreach", image: null },
-    { id: "3", title: "B2B Prospect Research", detail: "Decision-maker intelligence your sales team can trust.", slug: "prospect-research", image: null },
-    { id: "4", title: "Digital Marketing", detail: "Campaigns built to generate attention and action.", slug: "digital-marketing", image: null },
-    { id: "5", title: "Branding & Design", detail: "Distinct visual systems for credible B2B brands.", slug: "branding-design", image: null },
-    { id: "6", title: "Website Development", detail: "Fast, considered sites engineered to convert.", slug: "website-development", image: null },
-  ];
-
   const list = items.length > 0 ? items : fallback;
 
   return (
     <>
       <Nav />
       <main>
-        <section className="hero grid-bg" style={{ minHeight: "40vh" }}>
-          <div className="shell hero-copy">
-            <span className="eyebrow">What we do</span>
-            <h1>Services built for B2B growth.</h1>
-            <p>Every service is designed to move the right people closer to you.</p>
-          </div>
-        </section>
+        <PageHero eyebrow="What we do" title="Services built for B2B growth." copy="Every service is designed to move the right people closer to you." />
         <section className="shell" style={{ padding: "4rem 0" }}>
           {loading ? <p style={{ color: "#8892a4" }}>Loading...</p> :
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "2rem" }}>
