@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Footer, PageHero } from "../../../components/site";
 
 const SURL = "https://flrccmjaiyutynhydxeo.supabase.co";
-const SKEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZscmNjbWphaXl1dHluaHl4eGUiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTc4OTkwMjgwNCwiZXhwIjoyMTA1NDc4ODA0fQ.u0Qd1doTLrghPh2iVQ6PfoM2vnLX7rDQJqcHh2t03I0";
+const SKEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZscmNjbWphaXl1dHluaHlkeGVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5MDI4MDQsImV4cCI6MjEwNTQ3ODgwNH0.u0Qd1doTLrghPh2iVQ6PfoM2vnLX7rDQJqcHh2t03I0";
 const H = { apikey: SKEY, Authorization: `Bearer ${SKEY}` };
 
 const fallback = [
