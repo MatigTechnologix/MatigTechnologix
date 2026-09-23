@@ -22,12 +22,12 @@ export default function BlogPost() {
       });
   }, [slug]);
 
-  if (loading) return <><Nav /><main><div style={{ padding: "4rem", color: "#8892a4" }}>Loading...</div></main><Footer /></>;
-  if (!post) return <><Nav /><main><div style={{ padding: "4rem", textAlign: "center" }}><p style={{ color: "#8892a4" }}>Post not found.</p><Link href="/blog" style={{ color: "#00f5a0" }}>← Back to blog</Link></div></main><Footer /></>;
+  if (loading) return <><main><div style={{ padding: "4rem", color: "#8892a4" }}>Loading...</div></main><Footer /></>;
+  if (!post) return <><main><div style={{ padding: "4rem", textAlign: "center" }}><p style={{ color: "#8892a4" }}>Post not found.</p><Link href="/blog" style={{ color: "#00f5a0" }}>← Back to blog</Link></div></main><Footer /></>;
 
   return (
     <>
-      <Nav />
+      
       <main>
         {post.image && (
           <div style={{ width: "100%", height: "400px", overflow: "hidden" }}>

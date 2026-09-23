@@ -19,12 +19,12 @@ export default function CaseStudyDetail() {
       .then(data => { setItem(Array.isArray(data) && data.length > 0 ? data[0] : null); setLoading(false); });
   }, [slug]);
 
-  if (loading) return <><Nav /><main><div style={{ padding: "4rem", color: "#8892a4" }}>Loading...</div></main><Footer /></>;
-  if (!item) return <><Nav /><main><div style={{ padding: "4rem", textAlign: "center" }}><p style={{ color: "#8892a4" }}>Not found.</p><Link href="/case-studies" style={{ color: "#00f5a0" }}>← Back</Link></div></main><Footer /></>;
+  if (loading) return <><main><div style={{ padding: "4rem", color: "#8892a4" }}>Loading...</div></main><Footer /></>;
+  if (!item) return <><main><div style={{ padding: "4rem", textAlign: "center" }}><p style={{ color: "#8892a4" }}>Not found.</p><Link href="/case-studies" style={{ color: "#00f5a0" }}>← Back</Link></div></main><Footer /></>;
 
   return (
     <>
-      <Nav />
+      
       <main>
         {item.image && <div style={{ width: "100%", height: "400px", overflow: "hidden" }}><img src={item.image} alt={item.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} /></div>}
         <section className="shell" style={{ maxWidth: "760px", padding: "4rem 2rem" }}>
