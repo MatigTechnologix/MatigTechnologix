@@ -24,7 +24,8 @@ export default async function TeamPage() {
                 {m.image && <img src={m.image} alt={m.name} style={{ width: 100, height: 100, objectFit: "cover", borderRadius: "50%", marginBottom: "1rem" }} />}
                 <h2 style={{ fontSize: "1.1rem", marginBottom: "0.25rem" }}>{m.name}</h2>
                 <p style={{ color: "#00f5a0", fontSize: "0.85rem", marginBottom: "0.5rem" }}>{m.role}</p>
-                <p style={{ color: "#888", fontSize: "0.85rem" }}>{m.bio}</p>
+                                <p style={{ color: "#888", fontSize: "0.85rem" }}>{m.bio}</p>
+                {m.linkedin && <a href={m.linkedin} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", marginTop: "1rem", color: "#00f5a0", fontSize: "0.85rem", fontWeight: "600" }}>Learn More →</a>}
               </div>
             ))}
           </div>

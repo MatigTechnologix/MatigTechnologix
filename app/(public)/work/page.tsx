@@ -29,7 +29,8 @@ export default function Work() {
                 {item.image && <img src={item.image} alt={item.title} style={{ width: "100%", height: "220px", objectFit: "cover" }} />}
                 <div style={{ padding: "1.5rem" }}>
                   <h2 style={{ color: "#fff", fontSize: "1.2rem", fontWeight: "600", margin: "0 0 0.5rem" }}>{item.title}</h2>
-                  <p style={{ color: "#8892a4", fontSize: "0.9rem", lineHeight: "1.6" }}>{item.detail}</p>
+                                    <p style={{ color: "#8892a4", fontSize: "0.9rem", lineHeight: "1.6" }}>{item.detail}</p>
+                  {item.url && <a href={item.url} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", marginTop: "1rem", color: "#00f5a0", fontSize: "0.85rem", fontWeight: "600" }}>See More →</a>}
                 </div>
               </div>
             ))}
