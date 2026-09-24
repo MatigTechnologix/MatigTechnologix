@@ -586,11 +586,14 @@ export default function AdminDashboard() {
       </div>
     ),
 
-    attendance: (
+        attendance: (
       <div>
         <h2 style={{ color: "#fff", fontSize: "1.8rem", fontWeight: "700", marginBottom: "0.5rem" }}>Attendance Records</h2>
         <p style={{ color: "#8892a4", marginBottom: "1.5rem", fontSize: "0.88rem" }}>View and manage team attendance.</p>
-        <Table cols={["memberId", "date", "checkIn", "checkOut", "hours", "status"]} rows={data.attendance}
+               <Table cols={["name", "date", "checkIn", "checkOut", "hours", "status"]} rows={data.attendance.map((a: any) => ({
+          ...a,
+          name: data.members.find((m: any) => m.id === a.memberId)?.name || a.memberId,
+        }))}
           onEdit={null}
           onDelete={(id: string) => remove("Attendance", id)} />
       </div>
