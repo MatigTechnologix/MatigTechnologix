@@ -22,8 +22,9 @@ const menu = [
   { id: "testimonials", label: "⭐ Testimonials" },
   { id: "newsletter", label: "📧 Newsletter" },
   { id: "settings", label: "⚙️ Settings" },
+  { id: "members", label: "👤 Members" },
+  { id: "attendance", label: "📅 Attendance" },
 ];
-
 function SettingsSection() {
   const [tab, setTab] = useState("site");
   const [s, setS] = useState<Record<string, string>>({});
@@ -338,8 +339,9 @@ export default function AdminDashboard() {
   const router = useRouter();
   const [active, setActive] = useState("dashboard");
   const [data, setData] = useState<Record<string, any[]>>({
-    messages: [], blog: [], services: [], portfolio: [],
-    caseStudies: [], team: [], testimonials: [], newsletter: []
+       messages: [], blog: [], services: [], portfolio: [],
+    caseStudies: [], team: [], testimonials: [], newsletter: [],
+    members: [], attendance: []
   });
   const [loading, setLoading] = useState(true);
   const [form, setForm] = useState<any>({});
@@ -353,9 +355,10 @@ export default function AdminDashboard() {
 
   const fetchAll = async () => {
     setLoading(true);
-    const [msgs, blogs, svcs, ports, cases, tm, testi, news] = await Promise.all([
+        const [msgs, blogs, svcs, ports, cases, tm, testi, news, members, attendance] = await Promise.all([
       get("ContactMessage"), get("BlogPost"), get("Service"), get("Portfolio"),
       get("CaseStudy"), get("TeamMember"), get("Testimonial"), get("Newsletter"),
+      get("Member"), get("Attendance"),
     ]);
     setData({
       messages: Array.isArray(msgs) ? msgs : [],
@@ -365,7 +368,9 @@ export default function AdminDashboard() {
       caseStudies: Array.isArray(cases) ? cases : [],
       team: Array.isArray(tm) ? tm : [],
       testimonials: Array.isArray(testi) ? testi : [],
-      newsletter: Array.isArray(news) ? news : [],
+           newsletter: Array.isArray(news) ? news : [],
+      members: Array.isArray(members) ? members : [],
+      attendance: Array.isArray(attendance) ? attendance : [],
     });
     setLoading(false);
   };
@@ -560,7 +565,36 @@ export default function AdminDashboard() {
       </div>
     ),
 
-    settings: <SettingsSection />,
+       settings: <SettingsSection />,
+
+    members: (
+      <div>
+        <Header title="Team Members" />
+        <Table cols={["name", "email", "position", "phone", "status"]} rows={data.members}
+          onEdit={openEdit}
+          onDelete={(id: string) => remove("Member", id)} />
+        {showModal && <Modal form={form} setForm={setForm} editing={editing} onClose={closeModal}
+          fields={[
+            { key: "name", label: "Full Name" },
+            { key: "email", label: "Email Address", type: "email" },
+            { key: "password", label: "Password" },
+            { key: "position", label: "Position" },
+            { key: "phone", label: "Phone Number" },
+            { key: "status", label: "Status", type: "select", options: ["Active", "Inactive"] },
+          ]}
+          onSave={() => save("Member", { name: form.name, email: form.email, password: form.password, position: form.position, phone: form.phone, status: form.status || "Active" })} />}
+      </div>
+    ),
+
+    attendance: (
+      <div>
+        <h2 style={{ color: "#fff", fontSize: "1.8rem", fontWeight: "700", marginBottom: "0.5rem" }}>Attendance Records</h2>
+        <p style={{ color: "#8892a4", marginBottom: "1.5rem", fontSize: "0.88rem" }}>View and manage team attendance.</p>
+        <Table cols={["memberId", "date", "checkIn", "checkOut", "hours", "status"]} rows={data.attendance}
+          onEdit={null}
+          onDelete={(id: string) => remove("Attendance", id)} />
+      </div>
+    ),
   };
 
   return (
