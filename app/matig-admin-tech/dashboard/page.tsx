@@ -338,6 +338,26 @@ function Table({ cols, rows, onEdit, onDelete }: any) {
 export default function AdminDashboard() {
   const router = useRouter();
   const [active, setActive] = useState("dashboard");
+
+  // Session timer - auto logout after 30 minutes of inactivity
+  useEffect(() => {
+    let timer: any;
+    const reset = () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        localStorage.removeItem("matig-admin");
+        router.push("/matig-admin-tech");
+      }, 30 * 60 * 1000);
+    };
+    reset();
+    window.addEventListener("mousemove", reset);
+    window.addEventListener("keypress", reset);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("mousemove", reset);
+      window.removeEventListener("keypress", reset);
+    };
+  }, []);
   const [data, setData] = useState<Record<string, any[]>>({
        messages: [], blog: [], services: [], portfolio: [],
     caseStudies: [], team: [], testimonials: [], newsletter: [],
