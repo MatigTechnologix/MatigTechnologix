@@ -337,7 +337,11 @@ function Table({ cols, rows, onEdit, onDelete }: any) {
 
 export default function AdminDashboard() {
   const router = useRouter();
-  const [active, setActive] = useState("dashboard");
+  const [greeting, setGreeting] = useState("Good Morning");
+useEffect(() => {
+  const h = new Date().getHours();
+  setGreeting(h < 12 ? "Good Morning" : h < 17 ? "Good Afternoon" : "Good Evening");
+}, []);
 
   // Session timer - auto logout after 30 minutes of inactivity
   useEffect(() => {
@@ -431,7 +435,7 @@ export default function AdminDashboard() {
           <div>
             <div style={{ background:"rgba(0,245,160,0.1)", border:"1px solid rgba(0,245,160,0.3)", borderRadius:"999px", padding:"0.25rem 0.75rem", display:"inline-block", color:"#00f5a0", fontSize:"0.75rem", marginBottom:"0.5rem" }}>Welcome back,</div>
             <h1 style={{ color:"#fff", fontSize:"1.8rem", fontWeight:800, margin:"0 0 0.25rem" }}>
-              {new Date().getHours() < 12 ? "Good Morning" : new Date().getHours() < 17 ? "Good Afternoon" : "Good Evening"}, Admin 👋
+              {(() => { const h = new Date().getHours(); return h < 12 ? "Good Morning" : h < 17 ? "Good Afternoon" : "Good Evening"; })()}, Admin 👋
             </h1>
             <p style={{ color:"#8892a4", fontSize:"0.85rem", margin:0 }}>Here's what's happening with your website today.</p>
           </div>
