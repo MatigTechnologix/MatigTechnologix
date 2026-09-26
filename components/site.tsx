@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 
-export function Nav(){return <nav className="nav shell" aria-label="Main navigation"><Link href="/" className="brand"><img src="https://res.cloudinary.com/folpmq9g/image/upload/v1790393882/ChatGPT_Image_Sep_26_2026_08_30_38_AM.png" alt="MATIG" style={{height:"38px",objectFit:"contain"}} /></Link><div className="links"><Link href="/services">Services</Link><Link href="/industries">Industries</Link><Link href="/work">Our work</Link><Link href="/about">About</Link><Link href="/resources">Insights</Link></div><Link href="/contact" className="btn primary">Get a Free Sample <span>↗</span></Link><span className="mobile" aria-hidden>☰</span></nav>}
+export function Nav(){return <nav className="nav shell" aria-label="Main navigation"><Link href="/" className="brand"><img src="https://res.cloudinary.com/folpmq9g/image/upload/v1790394308/ChatGPT_Image_Sep_26_2026_08_44_50_AM.png" alt="MATIG" style={{height:"38px",objectFit:"contain"}} /></Link><div className="links"><Link href="/services">Services</Link><Link href="/industries">Industries</Link><Link href="/work">Our work</Link><Link href="/about">About</Link><Link href="/resources">Insights</Link></div><Link href="/contact" className="btn primary">Get a Free Sample <span>↗</span></Link><span className="mobile" aria-hidden>☰</span></nav>}
 
 export function Footer(){
   const [email, setEmail] = useState("");
@@ -17,7 +17,7 @@ export function Footer(){
     <footer className="footer">
       <div className="shell foot-grid">
         <div>
-          <Link href="/" className="brand"><img src="https://res.cloudinary.com/folpmq9g/image/upload/v1790393882/ChatGPT_Image_Sep_26_2026_08_30_38_AM.png" alt="MATIG" style={{height:"34px",objectFit:"contain"}} /></Link>
+          <Link href="/" className="brand"><img src="https://res.cloudinary.com/folpmq9g/image/upload/v1790394308/ChatGPT_Image_Sep_26_2026_08_44_50_AM.png" alt="MATIG" style={{height:"34px",objectFit:"contain"}} /></Link>
           <p style={{color:"var(--muted)",fontSize:".84rem",lineHeight:1.7,maxWidth:260}}>The human-powered growth partner for B2B teams ready to build momentum.</p>
           <form onSubmit={subscribe} style={{marginTop:"1rem",display:"flex",gap:"0.5rem",flexWrap:"wrap"}}>
             <input type="email" required value={email} onChange={e=>setEmail(e.target.value)} placeholder="Your email" style={{padding:"0.5rem 0.75rem",borderRadius:"0.4rem",border:"1px solid #333",background:"#111",color:"#fff",fontSize:"0.85rem",flex:1,minWidth:160}}/>
