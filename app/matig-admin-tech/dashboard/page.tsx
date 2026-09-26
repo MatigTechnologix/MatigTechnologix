@@ -424,32 +424,116 @@ export default function AdminDashboard() {
   );
 
   const content: Record<string, React.ReactNode> = {
-    dashboard: (
+       dashboard: (
       <div>
-        <p style={{ color: "#00f5a0", fontSize: "0.8rem", letterSpacing: "0.15em", marginBottom: "1rem" }}>MATIG CMS</p>
-        <h1 style={{ color: "#fff", fontSize: "clamp(2rem,4vw,3rem)", fontWeight: "700", marginBottom: "1rem" }}>Content dashboard.</h1>
-        <p style={{ color: "#8892a4", marginBottom: "2.5rem" }}>Everything connected to Supabase. Real-time data.</p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "1rem", marginBottom: "2rem" }}>
+        {/* Top bar */}
+        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"2rem" }}>
+          <div>
+            <div style={{ background:"rgba(0,245,160,0.1)", border:"1px solid rgba(0,245,160,0.3)", borderRadius:"999px", padding:"0.25rem 0.75rem", display:"inline-block", color:"#00f5a0", fontSize:"0.75rem", marginBottom:"0.5rem" }}>Welcome back,</div>
+            <h1 style={{ color:"#fff", fontSize:"1.8rem", fontWeight:800, margin:"0 0 0.25rem" }}>
+              {new Date().getHours() < 12 ? "Good Morning" : new Date().getHours() < 17 ? "Good Afternoon" : "Good Evening"}, Admin 👋
+            </h1>
+            <p style={{ color:"#8892a4", fontSize:"0.85rem", margin:0 }}>Here's what's happening with your website today.</p>
+          </div>
+          <div style={{ background:"linear-gradient(135deg,#0d2a3f,#0a1f2e)", border:"1px solid #1e3a5f", borderRadius:"1rem", padding:"1.25rem 1.5rem", minWidth:280 }}>
+            <p style={{ color:"#00f5a0", fontSize:"0.7rem", letterSpacing:"0.1em", margin:"0 0 0.5rem" }}>MATIG TECHNOLOGIX</p>
+            <p style={{ color:"#fff", fontWeight:700, fontSize:"1rem", margin:"0 0 0.25rem" }}>Building Digital Growth for B2B Businesses</p>
+            <p style={{ color:"#8892a4", fontSize:"0.78rem", margin:"0 0 1rem", lineHeight:1.5 }}>We help ambitious companies generate leads and grow faster.</p>
+            <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+              <a href="https://matigtechnologix.online" target="_blank" style={{ background:"#00f5a0", color:"#0a0f1a", padding:"0.4rem 1rem", borderRadius:"0.4rem", fontSize:"0.8rem", fontWeight:700, textDecoration:"none" }}>View Website →</a>
+              <span style={{ color:"#00f5a0", fontSize:"0.75rem", display:"flex", alignItems:"center", gap:"0.3rem" }}><span style={{ width:8, height:8, background:"#00f5a0", borderRadius:"50%", display:"inline-block" }} />Live</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Stats */}
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(6,1fr)", gap:"0.75rem", marginBottom:"1.5rem" }}>
           {[
-            { label: "MESSAGES", value: data.messages.length, color: "#00f5a0" },
-            { label: "UNREAD", value: data.messages.filter((m: any) => !m.read).length, color: "#ff6b6b" },
-            { label: "BLOG POSTS", value: data.blog.length, color: "#00f5a0" },
-            { label: "SERVICES", value: data.services.length, color: "#00f5a0" },
-            { label: "TEAM", value: data.team.length, color: "#00f5a0" },
-            { label: "NEWSLETTER", value: data.newsletter.length, color: "#00f5a0" },
+            { label:"MESSAGES", value:data.messages.length, icon:"✉️", color:"#00f5a0" },
+            { label:"UNREAD", value:data.messages.filter((m:any)=>!m.read).length, icon:"🔔", color:"#ff6b6b" },
+            { label:"BLOG POSTS", value:data.blog.length, icon:"📝", color:"#7474ff" },
+            { label:"SERVICES", value:data.services.length, icon:"⚙️", color:"#f59e0b" },
+            { label:"TEAM", value:data.team.length, icon:"👥", color:"#a78bfa" },
+            { label:"NEWSLETTER", value:data.newsletter.length, icon:"📧", color:"#00f5a0" },
           ].map(s => (
-            <div key={s.label} style={{ background: "#111827", border: "1px solid #1e2d40", borderRadius: "1rem", padding: "1.5rem" }}>
-              <p style={{ color: "#8892a4", fontSize: "0.7rem", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>{s.label}</p>
-              <p style={{ color: s.color, fontSize: "2.5rem", fontWeight: "700", margin: 0 }}>{s.value}</p>
+            <div key={s.label} style={{ background:"#111827", border:"1px solid #1e2d40", borderRadius:"0.75rem", padding:"1rem" }}>
+              <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:"0.75rem" }}>
+                <span style={{ fontSize:"1.2rem" }}>{s.icon}</span>
+              </div>
+              <p style={{ color:"#8892a4", fontSize:"0.65rem", letterSpacing:"0.08em", margin:"0 0 0.4rem" }}>{s.label}</p>
+              <p style={{ color:s.color, fontSize:"1.8rem", fontWeight:800, margin:0 }}>{s.value}</p>
             </div>
           ))}
         </div>
-        <div style={{ background: "#111827", border: "1px solid #1e2d40", borderRadius: "1rem", padding: "1.5rem" }}>
-          <p style={{ color: "#00f5a0", fontSize: "0.75rem", letterSpacing: "0.1em", marginBottom: "1rem" }}>QUICK ACTIONS</p>
-          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-            {[["messages","View Messages"],["blog","Write Blog"],["services","Manage Services"],["team","Manage Team"]].map(([id, label]) => (
-              <button key={id} onClick={() => setActive(id)} style={{ background: "#1e2d40", border: "none", color: "#fff", padding: "0.6rem 1.2rem", borderRadius: "0.5rem", cursor: "pointer" }}>{label}</button>
-            ))}
+
+        {/* Bottom row */}
+        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:"1rem" }}>
+          {/* Quick Actions */}
+          <div style={{ background:"#111827", border:"1px solid #1e2d40", borderRadius:"1rem", padding:"1.5rem" }}>
+            <div style={{ display:"flex", alignItems:"center", gap:"0.5rem", marginBottom:"0.5rem" }}>
+              <span>⚡</span><p style={{ color:"#fff", fontWeight:700, margin:0 }}>Quick Actions</p>
+            </div>
+            <p style={{ color:"#8892a4", fontSize:"0.78rem", marginBottom:"1.25rem" }}>Manage your content quickly.</p>
+            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"0.6rem" }}>
+              {[["messages","✉️","View Messages","Check new inquiries"],["blog","📝","Write Blog","Create a new post"],["services","⚙️","Manage Services","Update your services"],["team","👥","Manage Team","View & edit members"]].map(([id,icon,label,sub]) => (
+                <button key={id} onClick={() => setActive(id)} style={{ background:"#1e2d40", border:"1px solid #2a3f5f", borderRadius:"0.6rem", padding:"0.75rem", cursor:"pointer", textAlign:"left" as any }}>
+                  <span style={{ fontSize:"1.1rem" }}>{icon}</span>
+                  <p style={{ color:"#fff", fontSize:"0.8rem", fontWeight:600, margin:"0.4rem 0 0.1rem" }}>{label}</p>
+                  <p style={{ color:"#8892a4", fontSize:"0.7rem", margin:0 }}>{sub}</p>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Recent Activity */}
+          <div style={{ background:"#111827", border:"1px solid #1e2d40", borderRadius:"1rem", padding:"1.5rem" }}>
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"1rem" }}>
+              <div style={{ display:"flex", alignItems:"center", gap:"0.5rem" }}>
+                <span>🕐</span><p style={{ color:"#fff", fontWeight:700, margin:0 }}>Recent Activity</p>
+              </div>
+            </div>
+            <div style={{ display:"flex", flexDirection:"column", gap:"0.75rem" }}>
+              {data.messages.slice(0,2).map((m:any) => (
+                <div key={m.id} style={{ display:"flex", gap:"0.75rem", alignItems:"flex-start" }}>
+                  <div style={{ width:32, height:32, background:"rgba(0,245,160,0.1)", borderRadius:"0.5rem", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"0.9rem", flexShrink:0 }}>✉️</div>
+                  <div>
+                    <p style={{ color:"#fff", fontSize:"0.82rem", fontWeight:600, margin:"0 0 0.1rem" }}>New message from {m.name}</p>
+                    <p style={{ color:"#8892a4", fontSize:"0.72rem", margin:0 }}>{m.email}</p>
+                  </div>
+                </div>
+              ))}
+              {data.blog.slice(0,2).map((b:any) => (
+                <div key={b.id} style={{ display:"flex", gap:"0.75rem", alignItems:"flex-start" }}>
+                  <div style={{ width:32, height:32, background:"rgba(116,116,255,0.1)", borderRadius:"0.5rem", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"0.9rem", flexShrink:0 }}>📝</div>
+                  <div>
+                    <p style={{ color:"#fff", fontSize:"0.82rem", fontWeight:600, margin:"0 0 0.1rem" }}>Blog: {b.title}</p>
+                    <p style={{ color:"#8892a4", fontSize:"0.72rem", margin:0 }}>{b.status}</p>
+                  </div>
+                </div>
+              ))}
+              {data.messages.length === 0 && data.blog.length === 0 && <p style={{ color:"#8892a4", fontSize:"0.82rem" }}>No recent activity.</p>}
+            </div>
+          </div>
+
+          {/* System Status */}
+          <div style={{ background:"#111827", border:"1px solid #1e2d40", borderRadius:"1rem", padding:"1.5rem" }}>
+            <div style={{ display:"flex", alignItems:"center", gap:"0.5rem", marginBottom:"1rem" }}>
+              <span>📊</span><p style={{ color:"#fff", fontWeight:700, margin:0 }}>System Status</p>
+            </div>
+            <div style={{ display:"flex", flexDirection:"column", gap:"0.75rem" }}>
+              {[["Website","Live","#00f5a0"],["Database","Connected","#00f5a0"],["CMS","Running","#00f5a0"],["Members","Active","#00f5a0"]].map(([label,status,color]) => (
+                <div key={label} style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"0.6rem 0.75rem", background:"#0d1520", borderRadius:"0.5rem" }}>
+                  <span style={{ color:"#8892a4", fontSize:"0.82rem" }}>{label}</span>
+                  <span style={{ color, fontSize:"0.75rem", fontWeight:600, display:"flex", alignItems:"center", gap:"0.3rem" }}>
+                    <span style={{ width:6, height:6, background:color, borderRadius:"50%", display:"inline-block" }} />{status}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div style={{ marginTop:"1rem", padding:"0.75rem", background:"rgba(0,245,160,0.05)", border:"1px solid rgba(0,245,160,0.1)", borderRadius:"0.6rem" }}>
+              <p style={{ color:"#00f5a0", fontSize:"0.78rem", fontWeight:600, margin:"0 0 0.2rem" }}>System Online</p>
+              <p style={{ color:"#8892a4", fontSize:"0.72rem", margin:0 }}>All services running smoothly</p>
+            </div>
           </div>
         </div>
       </div>
