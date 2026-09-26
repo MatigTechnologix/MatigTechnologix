@@ -338,6 +338,7 @@ function Table({ cols, rows, onEdit, onDelete }: any) {
 export default function AdminDashboard() {
   const router = useRouter();
   const [greeting, setGreeting] = useState("Good Morning");
+  const [active, setActive] = useState("dashboard");
 useEffect(() => {
   const h = new Date().getHours();
   setGreeting(h < 12 ? "Good Morning" : h < 17 ? "Good Afternoon" : "Good Evening");
