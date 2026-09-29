@@ -2,8 +2,31 @@
 import React, { useState } from "react";
 import Link from "next/link";
 
-export function Nav(){return <nav className="nav shell" aria-label="Main navigation"><Link href="/" className="brand"><img src="https://res.cloudinary.com/folpmq9g/image/upload/v1790393882/ChatGPT_Image_Sep_26_2026_08_30_38_AM.png" alt="MATIG" style={{height:"38px",objectFit:"contain"}} /></Link><div className="links"><Link href="/services">Services</Link><Link href="/industries">Industries</Link><Link href="/work">Our work</Link><Link href="/about">About</Link><Link href="/resources">Insights</Link></div><Link href="/contact" className="btn primary">Get a Free Sample <span>↗</span></Link><span className="mobile" aria-hidden>☰</span></nav>}
-
+export function Nav(){
+  const [open, setOpen] = React.useState(false);
+  return (
+    <nav className="nav shell" aria-label="Main navigation" style={{position:"sticky",top:0,zIndex:100,background:"rgba(7,16,31,.92)",backdropFilter:"blur(12px)",borderBottom:"1px solid var(--line)"}}>
+      <Link href="/" className="brand"><img src="https://res.cloudinary.com/folpmq9g/image/upload/v1790393882/ChatGPT_Image_Sep_26_2026_08_30_38_AM.png" alt="MATIG" style={{height:"38px",objectFit:"contain"}} /></Link>
+      <div className="links">
+        <Link href="/services">Services</Link>
+        <Link href="/industries">Industries</Link>
+        <Link href="/work">Our work</Link>
+        <Link href="/about">About</Link>
+        <Link href="/resources">Insights</Link>
+      </div>
+      <Link href="/contact" className="btn primary" style={{display:"flex"}} >Get a Free Sample <span>↗</span></Link>
+      <span className="mobile" onClick={()=>setOpen(!open)} style={{cursor:"pointer",fontSize:"1.5rem",userSelect:"none"}}>☰</span>
+      {open && (
+        <div style={{position:"fixed",inset:0,top:"76px",background:"rgba(7,16,31,.98)",zIndex:99,display:"flex",flexDirection:"column",padding:"2rem",gap:"1.5rem"}}>
+          {[["Services","/services"],["Industries","/industries"],["Our work","/work"],["About","/about"],["Insights","/resources"]].map(([label,href])=>(
+            <Link key={href} href={href} onClick={()=>setOpen(false)} style={{color:"#fff",fontSize:"1.2rem",fontWeight:600,textDecoration:"none"}}>{label}</Link>
+          ))}
+          <Link href="/contact" className="btn primary" onClick={()=>setOpen(false)} style={{marginTop:"1rem",textAlign:"center"}}>Get a Free Sample ↗</Link>
+        </div>
+      )}
+    </nav>
+  );
+}
 export function Footer(){
   const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");
