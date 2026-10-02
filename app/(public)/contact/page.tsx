@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { Footer, PageHero } from "../../../components/site";
 
-const SURL = "https://flrccmjaiyutynhydxeo.supabase.co";
+const SURL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const SKEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZscmNjbWphaXl1dHluaHlkeGVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5MDI4MDQsImV4cCI6MjEwNTQ3ODgwNH0.u0Qd1doTLrghPh2iVQ6PfoM2vnLX7rDQJqcHh2t03I0";
 const H = { apikey: SKEY, Authorization: `Bearer ${SKEY}` };
 
