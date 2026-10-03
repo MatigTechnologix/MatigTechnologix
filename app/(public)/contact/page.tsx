@@ -7,7 +7,7 @@ const SKEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZ
 const H = { apikey: SKEY, Authorization: `Bearer ${SKEY}` };
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", service: "", context: "" });
+  const [form, setForm] = useState({ name: "", email: "", service: "", context: "", honeypot: "", timestamp: Date.now() });
   const [services, setServices] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
