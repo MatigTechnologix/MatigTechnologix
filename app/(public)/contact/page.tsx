@@ -105,8 +105,9 @@ export default function Contact() {
                       style={{ ...inp, resize:"vertical", fontFamily:"inherit" }} />
                   </div>
 
-                  <input type="text" name="honeypot" value={form.honeypot} onChange={e => setForm({...form, honeypot: e.target.value})} style={{display:"none"}} tabIndex={-1} autoComplete="off" />={{ color:"#ff6b6b", fontSize:"0.85rem", marginBottom:"1rem", padding:"0.75rem", background:"rgba(255,107,107,0.1)", borderRadius:"0.5rem" }}>{error}</p>}
-
+                                    <input type="text" name="honeypot" value={form.honeypot} onChange={e => setForm({...form, honeypot: e.target.value})} style={{display:"none"}} tabIndex={-1} autoComplete="off" />
+                  {error && <p style={{ color:"#ff6b6b", fontSize:"0.85rem", marginBottom:"1rem", padding:"0.75rem", background:"rgba(255,107,107,0.1)", borderRadius:"0.5rem" }}>{error}</p>}
+                  
                   <button type="submit" disabled={loading}
                     style={{ width:"100%", padding:"1rem", background:loading?"#1e2d40":"#00f5a0", color:loading?"#8892a4":"#0a0f1a", border:"none", borderRadius:"0.6rem", fontSize:"0.95rem", fontWeight:600, cursor:loading?"not-allowed":"pointer" }}>
                     {loading ? "Sending..." : "Request my free sample →"}
