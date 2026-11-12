@@ -25,7 +25,7 @@ export default function Services() {
 
         <section className="shell" style={{ padding: "4rem 0" }}>
           {loading ? <p style={{ color: "#8892a4" }}>Loading...</p> :
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(480px, 1fr))", gap: "2rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "2rem" }}>
             {items.map((item, i) => (
               <div key={item.id} style={{ background: "#111827", border: "1px solid #1e2d40", borderRadius: "1.25rem", overflow: "hidden" }}>
                 {/* Header */}
