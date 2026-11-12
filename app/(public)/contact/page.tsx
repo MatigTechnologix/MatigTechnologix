@@ -51,7 +51,7 @@ export default function Contact() {
       <main>
         <PageHero eyebrow="Start with proof" title="Get a free sample, tailored to your market." copy="Tell us where you are trying to go. We will show you what a sharper first move could look like." />
         <section style={{ padding:"5rem 2rem", background:"#0a0f1a" }}>
-          <div style={{ maxWidth:"1100px", margin:"0 auto", sed -i 's/gridTemplateColumns:"repeat(auto-fit,minmax(300px,1fr))", gap:"2rem"/gridTemplateColumns:"repeat(auto-fit, minmax(300px, 1fr))", gap:"2rem"/' "app/(public)/contact/page.tsx", alignItems:"center" }}>
+                    <div style={{ maxWidth:"1100px", margin:"0 auto", display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(300px,1fr))", gap:"2rem", alignItems:"center" }}>
             <div>
               <span style={{ color:"#00f5a0", fontSize:"0.75rem", fontWeight:600, letterSpacing:"0.15em", textTransform:"uppercase" as any, display:"block", marginBottom:"1.5rem" }}>WHAT TO EXPECT</span>
               <h2 style={{ fontSize:"clamp(2rem,4vw,3.2rem)", fontWeight:700, color:"#fff", lineHeight:1.15, marginBottom:"1.5rem" }}>A useful sample, not a sales pitch.</h2>
