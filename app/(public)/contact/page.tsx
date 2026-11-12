@@ -1,4 +1,3 @@
-cat > "app/(public)/contact/page.tsx" << 'ENDOFFILE'
 "use client";
 import { useState, useEffect } from "react";
 import { Footer, PageHero } from "../../../components/site";
@@ -51,12 +50,12 @@ export default function Contact() {
       <main>
         <PageHero eyebrow="Start with proof" title="Get a free sample, tailored to your market." copy="Tell us where you are trying to go. We will show you what a sharper first move could look like." />
         <section style={{ padding:"5rem 2rem", background:"#0a0f1a" }}>
-                    <div style={{ maxWidth:"1100px", margin:"0 auto", display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(300px,1fr))", gap:"2rem", alignItems:"center" }}>
+          <div style={{ maxWidth:"1100px", margin:"0 auto", display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(300px,1fr))", gap:"2rem", alignItems:"start" }}>
             <div>
               <span style={{ color:"#00f5a0", fontSize:"0.75rem", fontWeight:600, letterSpacing:"0.15em", textTransform:"uppercase" as any, display:"block", marginBottom:"1.5rem" }}>WHAT TO EXPECT</span>
               <h2 style={{ fontSize:"clamp(2rem,4vw,3.2rem)", fontWeight:700, color:"#fff", lineHeight:1.15, marginBottom:"1.5rem" }}>A useful sample, not a sales pitch.</h2>
               <p style={{ color:"#8892a4", fontSize:"1rem", lineHeight:1.7, marginBottom:"3rem", maxWidth:400 }}>Within 48 hours, you will receive a focused piece of work based on your selected service.</p>
-              <div style={{ display:"flex", gap:"2.5rem" }}>
+              <div style={{ display:"flex", gap:"2.5rem", flexWrap:"wrap" }}>
                 {[["2.4x","Average reply lift"],["48hr","Sample turnaround"],["100%","Human-checked data"]].map(([v,l]) => (
                   <div key={l}>
                     <div style={{ fontSize:"1.8rem", fontWeight:700, color:"#00f5a0", marginBottom:"0.25rem" }}>{v}</div>
@@ -111,4 +110,3 @@ export default function Contact() {
     </>
   );
 }
-ENDOFFILE
