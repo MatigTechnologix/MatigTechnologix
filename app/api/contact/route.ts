@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
     const { name, email, service, context, honeypot, timestamp } = body;
 
     if (honeypot) return NextResponse.json({ success: true });
-    if (!timestamp || Date.now() - timestamp < 3000) return NextResponse.json({ success: true });
+    
     if (!name || !email || !service) return NextResponse.json({ error: "Required fields missing" }, { status: 400 });
 
     const safeName = sanitize(String(name));
