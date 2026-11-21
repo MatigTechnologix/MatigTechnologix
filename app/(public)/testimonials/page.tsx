@@ -1,4 +1,5 @@
 import { Footer, PageHero } from "../../../components/site";
+import TestimonialCards from "./TestimonialCards";
 
 const SURL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const SKEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
@@ -16,19 +17,10 @@ export default async function TestimonialsPage() {
   return (
     <>
       <PageHero eyebrow="Testimonials" title="What our clients say." copy="Real feedback from real B2B teams we have worked with." />
-      <main style={{ maxWidth: 1100, margin: "0 auto", padding: "3rem 1rem" }}>
-        {!items?.length ? <p style={{ color: "#888" }}>No testimonials yet.</p> :
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(300px,1fr))", gap: "2rem" }}>
-            {items.map((item: any) => (
-              <div key={item.id} style={{ background: "#111", borderRadius: 12, border: "1px solid #222", padding: "1.5rem" }}>
-                <p style={{ color: "#fff", fontSize: "1rem", lineHeight: 1.7, marginBottom: "1rem" }}>"{item.message}"</p>
-                <p style={{ color: "#00f5a0", fontWeight: 600 }}>{item.name}</p>
-                <p style={{ color: "#888", fontSize: "0.85rem" }}>{item.company}</p>
-                <p style={{ color: "#FFD700", fontSize: "1rem" }}>{"⭐".repeat(item.rating || 5)}</p>
-              </div>
-            ))}
-          </div>
-        }
+      <main style={{background:"#f8fafc",padding:"80px 0"}}>
+        <div style={{maxWidth:1200,margin:"0 auto",padding:"0 24px"}}>
+          <TestimonialCards items={items||[]} />
+        </div>
       </main>
       <Footer />
     </>

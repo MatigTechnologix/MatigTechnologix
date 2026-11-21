@@ -8,7 +8,7 @@ const UP = "https://www.upwork.com/agencies/1326827692116914176/";
 
 export function SocialBar() {
   return (
-    <div style={{position:"fixed",left:"px",top:"50%",transform:"translateY(-50%)",zIndex:98,display:"flex",flexDirection:"column",gap:"16px"}}>
+    <div className="social-bar" style={{position:"absolute",left:"20px",top:"50%",transform:"translateY(-50%)",zIndex:98,display:"flex",flexDirection:"column",gap:"16px"}}>
       {[
         { href: FB, label: "Facebook", svg: <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg> },
         { href: LI, label: "LinkedIn", svg: <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg> },
@@ -49,17 +49,16 @@ export function Nav(){
           <img src="https://res.cloudinary.com/folpmq9g/image/upload/v1790393882/ChatGPT_Image_Sep_26_2026_08_30_38_AM.png" alt="MATIG" style={{height:"38px",objectFit:"contain"}} />
         </Link>
         <div className="links" style={{position:"relative"}}>
-          {/* Services dropdown */}
           <div style={{position:"relative"}} onMouseEnter={()=>setDropdown("services")} onMouseLeave={()=>setTimeout(()=>setDropdown(d=>d==="services"?null:d),150)}>
             <span style={{cursor:"pointer",color:"var(--text)",fontSize:".9rem",display:"flex",alignItems:"center",gap:"4px"}}>
               Services <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"/></svg>
             </span>
-           {dropdown==="services" && (
-             <div onMouseEnter={()=>setDropdown("services")} onMouseLeave={()=>setDropdown(null)} style={{position:"absolute",top:"100%",left:0,background:"#fff",borderRadius:"8px",boxShadow:"0 8px 32px rgba(0,0,0,0.18)",minWidth:"200px",zIndex:200,padding:"16px 0 8px 0",marginTop:"0px"}}>
+            {dropdown==="services" && (
+              <div onMouseEnter={()=>setDropdown("services")} onMouseLeave={()=>setDropdown(null)} style={{position:"absolute",top:"100%",left:0,background:"#0a0f1a",border:"1px solid rgba(57,231,164,0.2)",borderRadius:"10px",boxShadow:"0 8px 32px rgba(0,0,0,0.4)",minWidth:"200px",zIndex:200,padding:"8px 0",marginTop:"0px"}}>
                 {serviceLinks.map(([label,href])=>(
-                  <Link key={label} href={href} style={{display:"block",padding:"10px 20px",color:"#0a0f1a",fontSize:".88rem",textDecoration:"none",borderBottom:"1px solid #f0f0f0"}}
-                    onMouseEnter={e=>(e.currentTarget.style.background="#f0fdf9")}
-                    onMouseLeave={e=>(e.currentTarget.style.background="transparent")}>
+                  <Link key={label} href={href} style={{display:"block",padding:"10px 20px",color:"#cbd5e1",fontSize:".88rem",textDecoration:"none",borderBottom:"1px solid rgba(255,255,255,0.06)",transition:"all .15s"}}
+                    onMouseEnter={e=>{e.currentTarget.style.background="rgba(57,231,164,0.1)";e.currentTarget.style.color="#39e7a4"}}
+                    onMouseLeave={e=>{e.currentTarget.style.background="transparent";e.currentTarget.style.color="#cbd5e1"}}>
                     {label}
                   </Link>
                 ))}
@@ -70,17 +69,16 @@ export function Nav(){
           <Link href="/industries">Industries</Link>
           <Link href="/work">Our work</Link>
 
-          {/* Company dropdown */}
-         <div style={{position:"relative"}} onMouseEnter={()=>setDropdown("company")} onMouseLeave={()=>setTimeout(()=>setDropdown(d=>d==="company"?null:d),150)}>
+          <div style={{position:"relative"}} onMouseEnter={()=>setDropdown("company")} onMouseLeave={()=>setTimeout(()=>setDropdown(d=>d==="company"?null:d),150)}>
             <span style={{cursor:"pointer",color:"var(--text)",fontSize:".9rem",display:"flex",alignItems:"center",gap:"4px"}}>
               Company <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"/></svg>
             </span>
             {dropdown==="company" && (
-              <div onMouseEnter={()=>setDropdown("company")} onMouseLeave={()=>setDropdown(null)} style={{position:"absolute",top:"100%",left:0,background:"#fff",borderRadius:"8px",boxShadow:"0 8px 32px rgba(0,0,0,0.18)",minWidth:"180px",zIndex:200,padding:"16px 0 8px 0",marginTop:"0px"}}>
+              <div onMouseEnter={()=>setDropdown("company")} onMouseLeave={()=>setDropdown(null)} style={{position:"absolute",top:"100%",left:0,background:"#0a0f1a",border:"1px solid rgba(57,231,164,0.2)",borderRadius:"10px",boxShadow:"0 8px 32px rgba(0,0,0,0.4)",minWidth:"180px",zIndex:200,padding:"8px 0",marginTop:"0px"}}>
                 {companyLinks.map(([label,href])=>(
-                  <Link key={label} href={href} style={{display:"block",padding:"10px 20px",color:"#0a0f1a",fontSize:".88rem",textDecoration:"none",borderBottom:"1px solid #f0f0f0"}}
-                    onMouseEnter={e=>(e.currentTarget.style.background="#f0fdf9")}
-                    onMouseLeave={e=>(e.currentTarget.style.background="transparent")}>
+                  <Link key={label} href={href} style={{display:"block",padding:"10px 20px",color:"#cbd5e1",fontSize:".88rem",textDecoration:"none",borderBottom:"1px solid rgba(255,255,255,0.06)",transition:"all .15s"}}
+                    onMouseEnter={e=>{e.currentTarget.style.background="rgba(57,231,164,0.1)";e.currentTarget.style.color="#39e7a4"}}
+                    onMouseLeave={e=>{e.currentTarget.style.background="transparent";e.currentTarget.style.color="#cbd5e1"}}>
                     {label}
                   </Link>
                 ))}
@@ -116,31 +114,39 @@ export function Footer(){
     if (res.ok) { setMsg("✅ Subscribed!"); setEmail(""); } else setMsg(data.error || "Error");
   };
   return (
-    <footer className="footer">
-      <div className="shell foot-grid">
-        <div>
-          <Link href="/" className="brand"><img src="https://res.cloudinary.com/folpmq9g/image/upload/v1790393882/ChatGPT_Image_Sep_26_2026_08_30_38_AM.png" alt="MATIG" style={{height:"34px",objectFit:"contain"}} /></Link>
-          <p style={{color:"var(--muted)",fontSize:".84rem",lineHeight:1.7,maxWidth:260}}>The human-powered growth partner for B2B teams ready to build momentum.</p>
-          <form onSubmit={subscribe} style={{marginTop:"1rem",display:"flex",gap:"0.5rem",flexWrap:"wrap"}}>
-            <input type="email" required value={email} onChange={e=>setEmail(e.target.value)} placeholder="Your email" style={{padding:"0.5rem 0.75rem",borderRadius:"0.4rem",border:"1px solid #333",background:"#111",color:"#fff",fontSize:"0.85rem",flex:1,minWidth:160}}/>
-            <button type="submit" style={{padding:"0.5rem 1rem",background:"#00f5a0",color:"#0a0f1a",border:"none",borderRadius:"0.4rem",fontWeight:600,cursor:"pointer",fontSize:"0.85rem"}}>Subscribe</button>
-          </form>
-          {msg && <p style={{color:"#00f5a0",fontSize:"0.8rem",marginTop:"0.5rem"}}>{msg}</p>}
-          {/* Social icons */}
-          <div style={{display:"flex",gap:"10px",marginTop:"1.25rem"}}>
-            {[{href:FB,label:"Facebook",d:"M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"},{href:LI,label:"LinkedIn",d:"M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"},{href:UP,label:"Upwork",d:"M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.696 2.66zM18.561 5.018c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112c0 1.406-1.141 2.546-2.547 2.546S2.738 12.01 2.736 10.604V3.492H0v7.112c0 2.914 2.37 5.303 5.281 5.303s5.283-2.389 5.283-5.303v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109 3.645 0 6.188-2.737 6.188-6.32 0-3.517-2.543-5.569-5.188-5.569z"}].map(({href,label,d})=>(
-              <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label}
-                style={{width:34,height:34,borderRadius:"50%",background:"rgba(255,255,255,0.08)",border:"1px solid var(--line)",display:"flex",alignItems:"center",justifyContent:"center",color:"var(--emerald)"}}>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d={d}/></svg>
-              </a>
-            ))}
-          </div>
-        </div>
-        <div><h4>Services</h4><Link href="/services">Lead generation</Link><Link href="/services">LinkedIn outreach</Link><Link href="/services">Web development</Link></div>
-        <div><h4>Company</h4><Link href="/about">About MATIG</Link><Link href="/case-studies">Case Studies</Link><Link href="/team">Our Team</Link><Link href="/testimonials">Testimonials</Link><Link href="/blog">Blog</Link><Link href="/contact">Contact</Link></div>
-        <div><h4>Connect</h4><a href="mailto:hello@matigtechnologix.online">hello@matigtechnologix.online</a><Link href="/resources">Resources</Link></div>
+    <footer className="footer" style={{position:"relative",overflow:"hidden"}}>
+      <div style={{position:"absolute",top:0,left:0,right:0,lineHeight:0,zIndex:0}}>
+        <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" style={{display:"block",width:"100%"}}>
+          <path d="M0,40 C360,80 1080,0 1440,40 L1440,0 L0,0 Z" fill="rgba(57,231,164,0.06)"/>
+        </svg>
       </div>
-      <div className="shell copyright"><span>© 2026 MATIG Technologix. All rights reserved.</span><span>Built for meaningful growth.</span></div>
+      <div style={{position:"relative",zIndex:1}}>
+        <div className="shell foot-grid">
+          <div>
+            <Link href="/" className="brand"><img src="https://res.cloudinary.com/folpmq9g/image/upload/v1790393882/ChatGPT_Image_Sep_26_2026_08_30_38_AM.png" alt="MATIG" style={{height:"34px",objectFit:"contain"}} /></Link>
+            <p style={{color:"var(--muted)",fontSize:".84rem",lineHeight:1.7,maxWidth:260}}>The human-powered growth partner for B2B teams ready to build momentum.</p>
+            <form onSubmit={subscribe} style={{marginTop:"1rem",display:"flex",gap:"0.5rem",flexWrap:"wrap"}}>
+              <input type="email" required value={email} onChange={e=>setEmail(e.target.value)} placeholder="Your email" style={{padding:"0.5rem 0.75rem",borderRadius:"0.4rem",border:"1px solid #333",background:"#111",color:"#fff",fontSize:"0.85rem",flex:1,minWidth:160}}/>
+              <button type="submit" style={{padding:"0.5rem 1rem",background:"#00f5a0",color:"#0a0f1a",border:"none",borderRadius:"0.4rem",fontWeight:600,cursor:"pointer",fontSize:"0.85rem"}}>Subscribe</button>
+            </form>
+            {msg && <p style={{color:"#00f5a0",fontSize:"0.8rem",marginTop:"0.5rem"}}>{msg}</p>}
+            <div style={{display:"flex",gap:"10px",marginTop:"1.25rem"}}>
+              {[{href:FB,label:"Facebook",d:"M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"},{href:LI,label:"LinkedIn",d:"M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"},{href:UP,label:"Upwork",d:"M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.696 2.66zM18.561 5.018c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112c0 1.406-1.141 2.546-2.547 2.546S2.738 12.01 2.736 10.604V3.492H0v7.112c0 2.914 2.37 5.303 5.281 5.303s5.283-2.389 5.283-5.303v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109 3.645 0 6.188-2.737 6.188-6.32 0-3.517-2.543-5.569-5.188-5.569z"}].map(({href,label,d})=>(
+                <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label}
+                  style={{width:34,height:34,borderRadius:"50%",background:"rgba(255,255,255,0.08)",border:"1px solid var(--line)",display:"flex",alignItems:"center",justifyContent:"center",color:"var(--emerald)",transition:"all .2s"}}
+                  onMouseEnter={e=>{const el=e.currentTarget as HTMLElement;el.style.background="var(--emerald)";el.style.color="#0a0f1a"}}
+                  onMouseLeave={e=>{const el=e.currentTarget as HTMLElement;el.style.background="rgba(255,255,255,0.08)";el.style.color="var(--emerald)"}}>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d={d}/></svg>
+                </a>
+              ))}
+            </div>
+          </div>
+          <div><h4>Services</h4><Link href="/services">Lead generation</Link><Link href="/services">LinkedIn outreach</Link><Link href="/services">Web development</Link></div>
+          <div><h4>Company</h4><Link href="/about">About MATIG</Link><Link href="/case-studies">Case Studies</Link><Link href="/team">Our Team</Link><Link href="/testimonials">Testimonials</Link><Link href="/blog">Blog</Link><Link href="/contact">Contact</Link></div>
+          <div><h4>Connect</h4><a href="mailto:hello@matigtechnologix.online">hello@matigtechnologix.online</a><Link href="/resources">Resources</Link></div>
+        </div>
+        <div className="shell copyright"><span>© 2026 MATIG Technologix. All rights reserved.</span><span>Built for meaningful growth.</span></div>
+      </div>
     </footer>
   );
 }
