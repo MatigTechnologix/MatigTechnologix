@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
 
     // Email to admin
     const emailResult = await resend.emails.send({
-      from: "MATIG Contact <onboarding@resend.dev>",
+      from: "MATIG Contact <noreply@matigtechnologix.online>",
       to: "mehboob@matigtechnologix.online",
       subject: `New inquiry: ${safeService} from ${safeName}`,
       html: `<div style="font-family:sans-serif;padding:2rem"><h2 style="color:#00f5a0">New Contact Form Submission</h2><p><b>Name:</b> ${safeName}</p><p><b>Email:</b> ${safeEmail}</p><p><b>Service:</b> ${safeService}</p><p><b>Context:</b> ${safeContext || "N/A"}</p></div>`,
