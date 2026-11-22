@@ -44,13 +44,13 @@ export function Nav(){
 
   return (
     <>
-      <nav className="nav shell" aria-label="Main navigation" style={{position:"sticky",top:0,zIndex:100,background:"rgba(7,16,31,.92)",backdropFilter:"blur(12px)",borderBottom:"1px solid var(--line)"}}>
+      <nav className="nav" aria-label="Main navigation" style={{position:"sticky",top:0,zIndex:100,background:"#ffffff",borderBottom:"1px solid #e2e8f0",width:"100%"}}>
         <Link href="/" className="brand" onClick={()=>setOpen(false)}>
           <img src="https://res.cloudinary.com/folpmq9g/image/upload/v1790393882/ChatGPT_Image_Sep_26_2026_08_30_38_AM.png" alt="MATIG" style={{height:"38px",objectFit:"contain"}} />
         </Link>
         <div className="links" style={{position:"relative"}}>
           <div style={{position:"relative"}} onMouseEnter={()=>setDropdown("services")} onMouseLeave={()=>setTimeout(()=>setDropdown(d=>d==="services"?null:d),150)}>
-            <span style={{cursor:"pointer",color:"var(--text)",fontSize:".9rem",display:"flex",alignItems:"center",gap:"4px"}}>
+            <span style={{cursor:"pointer",color: "#0f172a" ,fontSize:".9rem",display:"flex",alignItems:"center",gap:"4px"}}>
               Services <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"/></svg>
             </span>
             {dropdown==="services" && (
@@ -70,7 +70,7 @@ export function Nav(){
           <Link href="/work">Our work</Link>
 
           <div style={{position:"relative"}} onMouseEnter={()=>setDropdown("company")} onMouseLeave={()=>setTimeout(()=>setDropdown(d=>d==="company"?null:d),150)}>
-            <span style={{cursor:"pointer",color:"var(--text)",fontSize:".9rem",display:"flex",alignItems:"center",gap:"4px"}}>
+            <span style={{cursor:"pointer",color:"#000000",fontSize:".9rem",display:"flex",alignItems:"center",gap:"4px"}}>
               Company <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"/></svg>
             </span>
             {dropdown==="company" && (
