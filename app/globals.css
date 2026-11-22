@@ -38,3 +38,52 @@ section{padding:96px 0}.section-head{display:flex;justify-content:space-between;
 
 .circuit, .dot { display: none !important; }
 .orb { display: none !important; }
+
+@media (max-width: 768px) {
+  .social-bar { display: none !important; }
+  .shell { padding-left: 1rem !important; padding-right: 1rem !important; }
+  .cards { grid-template-columns: 1fr !important; }
+  .split { flex-direction: column !important; grid-template-columns: 1fr !important; }
+  .steps { gap: 1rem !important; }
+  .foot-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+  .hero-copy h1 { font-size: 2.2rem !important; }
+  .nav .links { display: none !important; }
+  .hide-mobile { display: none !important; }
+}
+
+@media (max-width: 768px) {
+  /* Hero */
+  .hero-copy { padding: 2rem 1rem !important; }
+  .hero-copy h1 { font-size: 2rem !important; }
+  .hero-actions { flex-direction: column !important; gap: 0.75rem !important; }
+  .proof { flex-wrap: wrap !important; gap: 1rem !important; }
+
+  /* About grid */
+  section > div > div[style*="grid-template-columns:1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Services split */
+  section > div > div[style*="grid-template-columns:1fr 1.6fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  section > div > div[style*="grid-template-columns:1fr 1fr"][style*="gap:20px"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Sticky left panel */
+  div[style*="position:sticky"] { position: relative !important; top: 0 !important; }
+
+  /* Stats circles */
+  div[style*="gap:48px"] { gap: 24px !important; }
+  div[style*="width:120px"] { width: 90px !important; height: 90px !important; }
+
+  /* Cards */
+  .cards { grid-template-columns: 1fr !important; }
+
+  /* Testimonials */
+  div[style*="minmax(280px"] { grid-template-columns: 1fr !important; }
+
+  /* Social bar */
+  .social-bar { display: none !important; }
+}
