@@ -87,3 +87,12 @@ section{padding:96px 0}.section-head{display:flex;justify-content:space-between;
   /* Social bar */
   .social-bar { display: none !important; }
 }
+
+@media (max-width: 768px) {
+  .foot-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+  .foot-grid > div:first-child .social-bar { display: flex !important; position: static !important; transform: none !important; flex-direction: row !important; margin-top: 1rem; }
+}
+
+@media (max-width: 768px) {
+  .social-bar { display: none !important; }
+}
