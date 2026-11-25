@@ -647,8 +647,19 @@ useEffect(() => {
             { key: "role", label: "Role / Title" },
             { key: "image", label: "Profile Photo", type: "image" },
             { key: "bio", label: "Bio", type: "textarea" },
+            { key: "linkedin", label: "LinkedIn Profile URL" },
+            { key: "skills", label: "Skills (comma separated)" },
           ]}
-          onSave={() => save("TeamMember", { name: form.name, role: form.role, image: form.image, bio: form.bio })} />}
+          onSave={() => save("TeamMember", {
+  name: form.name,
+  role: form.role,
+  image: form.image,
+  bio: form.bio,
+  linkedin: form.linkedin,
+  skills: form.skills
+    ? form.skills.split(",").map((s: string) => s.trim()).filter(Boolean)
+    : []
+})} />}
       </div>
     ),
 

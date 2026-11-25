@@ -1,6 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
 
-:root { --ink:#07101f; --panel:#0d1930; --line:rgba(163,190,255,.18); --text:#f5f7ff; --muted:#a5b1ca; --indigo:#7474ff; --emerald:#39e7a4; --cream:#eef1ff; }
+:root {
+  --ink: #ffffff;
+  --panel: #ffffff;
+  --line: #e2eaf5;
+  --text: #183153;
+  --muted: #64748b;
+  --indigo: #062B8A;
+  --emerald: #12A83B;
+  --cream: #F3F7FF;
+}
 * { box-sizing:border-box } html { scroll-behavior:smooth } body { margin:0; background:var(--ink); color:var(--text); font-family:Manrope,Arial,sans-serif } a { color:inherit; text-decoration:none } button,input,select,textarea { font:inherit }
 .shell { width:min(1160px,calc(100% - 40px)); margin:auto }.mono,.eyebrow { font-family:"DM Mono",monospace; letter-spacing:.09em; text-transform:uppercase }.eyebrow{color:var(--emerald);font-size:.72rem;font-weight:500}.grid-bg{background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:52px 52px}.orb{position:absolute;border-radius:50%;filter:blur(4px);opacity:.55;pointer-events:none}.orb.one{width:480px;height:480px;background:radial-gradient(circle,var(--indigo),transparent 67%);right:-180px;top:-100px}.orb.two{width:380px;height:380px;background:radial-gradient(circle,var(--emerald),transparent 67%);left:-160px;bottom:-130px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;border:1px solid transparent;padding:.85rem 1.15rem;border-radius:8px;font-size:.86rem;font-weight:700;transition:.2s}.btn.primary{background:var(--emerald);color:#052117}.btn.primary:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(57,231,164,.25)}.btn.secondary{border-color:var(--line);color:var(--text)}.btn.secondary:hover{border-color:var(--indigo);background:rgba(116,116,255,.1)}
 
@@ -106,4 +115,313 @@ section{padding:96px 0}.section-head{display:flex;justify-content:space-between;
     display: block !important;
     color: #000000;
   }
+}
+
+/* ==================================
+   MATIG NEW BRAND DESIGN
+   Royal Blue + Green + White
+================================== */
+
+body {
+  background: #ffffff;
+  color: #183153;
+}
+
+.nav {
+  background: rgba(255,255,255,.96);
+  border-bottom: 1px solid #e2eaf5;
+}
+
+.nav .links a {
+  color: #183153;
+}
+
+.nav .links a:hover {
+  color: #12A83B;
+}
+
+.brand {
+  color: #062B8A;
+}
+
+.brand i {
+  background: #12A83B;
+}
+
+.mobile {
+  color: #062B8A;
+}
+
+.eyebrow,
+.tag,
+.card .num,
+.step b {
+  color: #12A83B;
+}
+
+.hero {
+  background: #F3F7FF;
+  border-bottom: 1px solid #e2eaf5;
+}
+
+.hero h1,
+.section-head h2,
+.page-hero h1 {
+  color: #062B8A;
+}
+
+.hero h1 em {
+  color: #12A83B;
+}
+
+.hero p,
+.section-head p,
+.hero .proof span,
+.page-hero p {
+  color: #64748b;
+}
+
+.btn.primary {
+  background: #12A83B;
+  color: #ffffff;
+}
+
+.btn.primary:hover {
+  background: #0d8d30;
+  box-shadow: 0 8px 24px rgba(18,168,59,.2);
+}
+
+.btn.secondary {
+  border-color: #062B8A;
+  color: #062B8A;
+}
+
+.btn.secondary:hover {
+  background: #eaf0ff;
+}
+
+.card,
+.list-item {
+  background: #ffffff;
+  border: 1px solid #e2eaf5;
+  box-shadow: 0 8px 25px rgba(6,43,138,.05);
+}
+
+.card:hover {
+  border-color: #12A83B;
+  box-shadow: 0 12px 30px rgba(6,43,138,.09);
+}
+
+.card h3,
+.step h3 {
+  color: #062B8A;
+}
+
+.card p,
+.step p,
+.list-item p {
+  color: #64748b;
+}
+
+.step {
+  border-color: #e2eaf5;
+}
+
+.band {
+  background: #F3F7FF;
+  color: #062B8A;
+}
+
+.band .eyebrow {
+  color: #12A83B;
+}
+
+.band .btn.primary {
+  background: #062B8A;
+  color: #ffffff;
+}
+
+.logos {
+  color: #64748b;
+}
+
+.page-hero {
+  background: #F3F7FF;
+  border-bottom-color: #e2eaf5;
+}
+
+.filter button {
+  color: #64748b;
+  border-color: #dce5f2;
+}
+
+.filter button:first-child {
+  color: #12A83B;
+  border-color: #12A83B;
+}
+
+.cta {
+  background: linear-gradient(120deg, #062B8A, #0B4A9C);
+  color: #ffffff;
+}
+
+.footer {
+  background: #062B8A;
+  border-top: none;
+  color: #ffffff;
+}
+
+.foot-grid h4,
+.copyright {
+  color: #c7d6f5;
+}
+
+.foot-grid a {
+  color: #ffffff;
+}
+
+.foot-grid a:hover {
+  color: #65df83;
+}
+
+.copyright {
+  border-color: rgba(255,255,255,.2);
+}
+
+.form {
+  background: #ffffff;
+  border-color: #e2eaf5;
+}
+
+.form label {
+  color: #183153;
+}
+
+.form input,
+.form textarea,
+.form select {
+  background: #F3F7FF;
+  border-color: #dce5f2;
+  color: #183153;
+}
+
+/* Admin panel */
+.cms-shell,
+.cms-side {
+  background: #ffffff;
+}
+
+.cms-side {
+  border-color: #e2eaf5;
+}
+
+.cms-side nav button {
+  color: #64748b;
+}
+
+.cms-side nav .cms-nav-active {
+  color: #12A83B;
+  border-color: #12A83B;
+}
+
+.cms-panel,
+.cms-record,
+.metric {
+  background: #F8FAFF;
+  border-color: #e2eaf5;
+}
+
+.cms-intro,
+.cms-record p,
+.cms-record small,
+.cms-toolbar span {
+  color: #64748b;
+}
+
+.cms-record h2,
+.cms-panel h2,
+.dashmain h1 {
+  color: #062B8A;
+}
+
+.cms-quick button,
+.cms-actions button {
+  color: #183153;
+  border-color: #dce5f2;
+}
+
+.cms-quick button:hover,
+.cms-actions button:hover {
+  color: #12A83B;
+  border-color: #12A83B;
+}
+
+.cms-toolbar input,
+.cms-editor input,
+.cms-editor textarea,
+.cms-editor select {
+  background: #F3F7FF;
+  color: #183153;
+  border-color: #dce5f2;
+}
+
+.cms-editor {
+  background: #ffffff;
+  border-color: #dce5f2;
+}
+
+.cms-editor h2,
+.cms-editor label {
+  color: #183153;
+}
+
+.cms-editor-head button {
+  color: #64748b;
+}
+
+.metric strong {
+  color: #062B8A;
+}
+
+.metric span {
+  color: #64748b;
+}
+
+.table th,
+.table td {
+  border-color: #e2eaf5;
+  color: #183153;
+}
+
+.table th {
+  color: #64748b;
+}
+
+.status {
+  color: #12A83B;
+}
+/* Homepage Hero */
+.hero h1 {
+  color: #ffffff !important;
+}
+
+.hero h1 em {
+  color: #65df83 !important;
+}
+
+.hero p {
+  color: #e4ecff !important;
+}
+
+.hero .proof strong {
+  color: #ffffff !important;
+}
+
+.hero .proof span {
+  color: #d2def5 !important;
+}
+
+.hero .btn.secondary {
+  color: #ffffff !important;
+  border-color: rgba(255,255,255,.6);
 }
