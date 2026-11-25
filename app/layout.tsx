@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { GoogleAnalytics } from '@next/third-parties/google';
 import "./globals.css";
+import "./responsive.css";
 
 export const metadata: Metadata = {
   title: { default: "MATIG Technologix | B2B Growth Partners", template: "%s | MATIG Technologix" },

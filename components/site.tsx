@@ -1,11 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
 const FB = "https://www.facebook.com/matigtechnologix/";
 const LI = "https://www.linkedin.com/company/matigtechnologix";
 const UP = "https://www.upwork.com/agencies/1326827692116914176/";
-
+const SURL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const SKEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZscmNjbWphaXl1dHluaHlkeGVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5MDI4MDQsImV4cCI6MjEwNTQ3ODgwNH0.u0Qd1doTLrghPh2iVQ6PfoM2vnLX7rDQJqcHh2t03I0";
+const H = { apikey: SKEY, Authorization: `Bearer ${SKEY}` };
 export function SocialBar() {
   return (
     <div className="social-bar" style={{position:"absolute",left:"20px",top:"50%",transform:"translateY(-50%)",zIndex:98,display:"flex",flexDirection:"column",gap:"16px"}}>
@@ -22,21 +24,32 @@ export function SocialBar() {
         </a>
       ))}
     </div>
-  );
+    );
 }
 
-export function Nav(){
+export function Nav() {
   const [open, setOpen] = useState(false);
   const [dropdown, setDropdown] = useState<string|null>(null);
+  const [services, setServices] = useState<any[]>([]);
+  const [activeService, setActiveService] = useState<string | null>(null);
 
-  const serviceLinks = [
-    ["Lead Generation","/services"],
-    ["LinkedIn Outreach","/services"],
-    ["B2B Prospect Research","/services"],
-    ["Web Development","/services"],
-  ];
+useEffect(() => {
+  fetch(`${SURL}/rest/v1/Service?status=eq.Published&order=createdAt.asc`, {
+    headers: H
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (Array.isArray(data)) setServices(data);
+    })
+        .catch(() => {});
+}, []);
+
+  const serviceLinks = services.map((item: any) => [
+  item.title,
+  "/#home-services"
+]);
   const companyLinks = [
-    ["About Us","/about"],
+    ["About Us","/#about"],
     ["Our Team","/team"],
     ["Case Studies","/case-studies"],
     ["Testimonials","/testimonials"],
@@ -55,13 +68,72 @@ export function Nav(){
             </span>
             {dropdown==="services" && (
               <div onMouseEnter={()=>setDropdown("services")} onMouseLeave={()=>setDropdown(null)} style={{position:"absolute",top:"100%",left:0,background:"#0a0f1a",border:"1px solid rgba(57,231,164,0.2)",borderRadius:"10px",boxShadow:"0 8px 32px rgba(0,0,0,0.4)",minWidth:"200px",zIndex:200,padding:"8px 0",marginTop:"0px"}}>
-                {serviceLinks.map(([label,href])=>(
-                  <Link key={label} href={href} style={{display:"block",padding:"10px 20px",color:"#cbd5e1",fontSize:".88rem",textDecoration:"none",borderBottom:"1px solid rgba(255,255,255,0.06)",transition:"all .15s"}}
-                    onMouseEnter={e=>{e.currentTarget.style.background="rgba(57,231,164,0.1)";e.currentTarget.style.color="#39e7a4"}}
-                    onMouseLeave={e=>{e.currentTarget.style.background="transparent";e.currentTarget.style.color="#cbd5e1"}}>
-                    {label}
-                  </Link>
-                ))}
+                
+{services.map((item: any) => (
+  <div
+    key={item.id}
+    style={{ position: "relative" }}
+    onMouseEnter={() => setActiveService(item.id)}
+    onMouseLeave={() => setActiveService(null)}
+  >
+    <Link
+      href="/#home-services"
+      onClick={() => setDropdown(null)}
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        padding: "10px 20px",
+        color: "#cbd5e1",
+        fontSize: ".88rem",
+        textDecoration: "none",
+        borderBottom: "1px solid rgba(255,255,255,0.06)"
+      }}
+    >
+      {item.title}
+      <span>›</span>
+    </Link>
+
+    {activeService === item.id &&
+      Array.isArray(item.subServices) &&
+      item.subServices.length > 0 && (
+        <div
+          style={{
+            position: "absolute",
+            left: "100%",
+            top: 0,
+            background: "#0a0f1a",
+            border: "1px solid rgba(57,231,164,0.2)",
+            borderRadius: "10px",
+            minWidth: "260px",
+            zIndex: 300,
+            padding: "8px 0",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.4)"
+          }}
+        >
+          {item.subServices.map((sub: any) => (
+            <Link
+              key={sub.slug}
+              href="/#home-services"
+              onClick={() => setDropdown(null)}
+              style={{
+                display: "block",
+                padding: "10px 16px",
+                color: "#cbd5e1",
+                fontSize: ".82rem",
+                textDecoration: "none",
+                borderBottom: "1px solid rgba(255,255,255,0.06)"
+              }}
+            >
+              {sub.title}
+            </Link>
+          ))}
+        </div>
+      )}
+  </div>
+))}
+
+                
               </div>
             )}
           </div>

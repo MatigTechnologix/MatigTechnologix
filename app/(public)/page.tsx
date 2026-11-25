@@ -114,24 +114,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="shell">
-          <div className="section-head">
-            <div>
-              <span className="eyebrow">What we do</span>
-              <h2>Every engagement starts with the right signal.</h2>
-            </div>
-            <p>We pair dedicated specialists with a practical, connected process—so every touchpoint feels considered.</p>
-          </div>
-          <div className="cards">
-            {services.slice(0, 3).map((item: any, index) => (
-              <Link className="card" href="/services" key={item.id}>
-                <span className="num">0{index + 1} / {item.title}</span>
-                <h3>{item.title}</h3>
-                <p>{item.detail || item.description}</p>
-              </Link>
-            ))}
-          </div>
-        </section>
+      
 
         <section style={{ borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
           <div className="shell split">
@@ -229,7 +212,7 @@ export default function Home() {
   </div>
 </section>
 {/* About Section */}
-<section style={{borderTop:"1px solid var(--line)"}}>
+<section id="about" style={{borderTop:"1px solid var(--line)"}}>
   <div className="shell" style={{padding:"80px 0"}}>
     <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"60px",alignItems:"center"}}>
       
@@ -265,17 +248,17 @@ export default function Home() {
   </div>
 </section>
 {/* Services Split Section */}
-<section style={{background:"#f8fafc",borderTop:"1px solid #e2e8f0"}}>
+<section id="home-services" style={{background:"#f8fafc",borderTop:"1px solid #e2e8f0"}}>
   <div className="shell" style={{padding:"80px 0"}}>
-    <div style={{display:"grid",gridTemplateColumns:"1fr 1.6fr",gap:"60px",alignItems:"start"}}>
-      <div style={{display:"flex",flexDirection:"column",gap:"16px",position:"sticky",top:"100px"}}>
+    <div className="services-layout" style={{display:"grid",gridTemplateColumns:"1fr 1.6fr",gap:"60px",alignItems:"start"}}>
+      <div className="services-intro" style={{display:"flex",flexDirection:"column",gap:"16px",position:"sticky",top:"100px"}}>
         <span style={{fontSize:".78rem",color:"#64748b",letterSpacing:".1em",textTransform:"uppercase" as any,fontWeight:600}}>What We're Offering</span>
         <div style={{width:"40px",height:"3px",background:"var(--emerald)",borderRadius:"2px"}} />
         <h2 style={{fontSize:"clamp(1.8rem,3vw,2.6rem)",letterSpacing:"-.04em",margin:0,color:"#0f172a"}}>Services We're Providing</h2>
         <p style={{color:"#64748b",lineHeight:1.8,fontSize:".92rem"}}>We bring you targeted B2B lead generation, LinkedIn outreach, and reliable web solutions rooted in our expertise and deep knowledge of customer behavior.</p>
         <Link href="/services" className="btn primary" style={{alignSelf:"flex-start",marginTop:"8px"}}>View All Services →</Link>
       </div>
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"20px"}}>
+      <div className="services-cards" style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"20px"}}>
         {services.slice(0,4).map((item:any)=>(
           <div key={item.id} style={{background:"#fff",border:"1px solid #e2e8f0",borderRadius:"12px",padding:"28px",display:"flex",flexDirection:"column",gap:"14px",transition:"all .25s",cursor:"default"}}
             onMouseEnter={e=>{const el=e.currentTarget as HTMLElement;el.style.borderColor="#06b6d4";el.style.boxShadow="0 4px 20px rgba(6,182,212,0.12)"}}
